@@ -86,8 +86,10 @@
     <ClInclude Include="Core.h" />
     <ClInclude Include="Element.h" />
     <ClInclude Include="ElementCollection.h" />
+    <ClInclude Include="ElementDocument.h" />
     <ClInclude Include="ElementEvent.h" />
     <ClInclude Include="Context.h" />
+    <ClInclude Include="FileInterface.h" />
     <ClInclude Include="LibRocketNet.h" />
     <ClInclude Include="LibRocketPlugin.h" />
     <ClInclude Include="RenderInterface.h" />
@@ -103,8 +105,10 @@
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Element.cpp" />
     <ClCompile Include="ElementCollection.cpp" />
+    <ClCompile Include="ElementDocument.cpp" />
     <ClCompile Include="ElementEvent.cpp" />
     <ClCompile Include="Context.cpp" />
+    <ClCompile Include="FileInterface.cpp" />
     <ClCompile Include="LibRocketNet.cpp" />
     <ClCompile Include="LibRocketPlugin.cpp" />
     <ClCompile Include="RenderInterface.cpp" />

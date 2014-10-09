@@ -220,7 +220,8 @@ public enum class KeyIdentifiers {
 	RMeta = 176
 };
 
-	
+
+[System:Flags]
 public enum class KeyModifier
 {
 	Control = 1 << 0,		// Set if at least one Ctrl key is depressed.

@@ -2,6 +2,7 @@
 
 using namespace System;
 using namespace System::Drawing;
+using namespace System::Collections::Generic;
 
 namespace LibRocketNet {
 
@@ -13,10 +14,16 @@ ref class Plugin;
 
 public ref class Core abstract 
 {
+	static SystemInterface^ _systemInterface;
+	static RenderInterface^ _renderInterface;
+	static FileInterface _fileInterface;
+
+	static System::Collections::Generic::List<Context^>^ _contexts;
+
 public:
 	static bool Initialize();
 	static void Shutdown();
-	static String^ GetVersion();
+	static property String^ Version { String^ get(); }
 
 	static property SystemInterface^ SystemInterface { LibRocketNet::SystemInterface^ get(); void set(LibRocketNet::SystemInterface^ s); }
 	static property RenderInterface^ RenderInterface { LibRocketNet::RenderInterface^ get(); void set(LibRocketNet::RenderInterface^ s); }

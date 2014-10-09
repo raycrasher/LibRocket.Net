@@ -8,8 +8,8 @@ namespace LibRocketNet {
 
 
 namespace Util {
-	String^ ToNetString(const RocketString& const s);
-	RocketString ToRocketString(const String^ const s);
+	String^ ToNetString(const Rocket::Core::String& const s);
+	Rocket::Core::String ToRocketString(const String^ const s);
 }
 
 }

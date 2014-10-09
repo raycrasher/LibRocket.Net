@@ -1,6 +1,6 @@
 #pragma once;
 
-#include "Rocket/Core/Vector2.h"
+#include "Rocket/Core/Vertex.h"
 
 typedef Rocket::Core::Vertex RVertex;
 typedef Rocket::Core::Vector2f RVector2f;
