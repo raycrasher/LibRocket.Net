@@ -45,6 +45,7 @@ public:
 
 internal:
 	System::IntPtr Interface;
+
 	LibRocketNet::Context^ _context;
 };
 

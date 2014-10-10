@@ -23,28 +23,28 @@ void SetGcRoot(RocketElement* elem, gcroot<Element^>* r){
 	elem->SetAttribute(ELEMENT_ATTRIBUTE_NAME,(void *)r);
 }
 
-Rectangle Element::Size::get(){
-	CHECK_NULL_ELEM(Rectangle());
+RectangleF Element::Size::get(){
+	CHECK_NULL_ELEM(RectangleF());
 	auto box = element->GetBox();
-	return Rectangle::FromLTRB(box.LEFT, box.TOP, box.RIGHT, box.BOTTOM);
+	return RectangleF::FromLTRB(box.LEFT, box.TOP, box.RIGHT, box.BOTTOM);
 }
 
 
-PointF Element::RelativeOffset::get(){
-	CHECK_NULL_ELEM(PointF());
+Vector2f Element::RelativeOffset::get(){
+	CHECK_NULL_ELEM(Vector2f());
 	auto p=element->GetRelativeOffset();
-	return PointF(p.x,p.y);
+	return Vector2f(p.x,p.y);
 }
 
-PointF Element::AbsoluteOffset::get(){
-	CHECK_NULL_ELEM(PointF());
+Vector2f Element::AbsoluteOffset::get(){
+	CHECK_NULL_ELEM(Vector2f());
 	auto p=element->GetAbsoluteOffset();
-	return PointF(p.x,p.y);
+	return Vector2f(p.x,p.y);
 }
 
-PointF Element::AbsolutePosition::get(){
-	CHECK_NULL_ELEM(PointF());
-	return PointF(element->GetAbsoluteLeft(), element->GetAbsoluteTop());
+Vector2f Element::AbsolutePosition::get(){
+	CHECK_NULL_ELEM(Vector2f());
+	return Vector2f(element->GetAbsoluteLeft(), element->GetAbsoluteTop());
 }
 
 

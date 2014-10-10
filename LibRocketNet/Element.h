@@ -1,12 +1,12 @@
 #pragma once
 using namespace System;
-using namespace System::Drawing;
 using namespace System::Collections;
 
 #include <gcroot.h>
 
 #include "LibRocketNet.h"
 #include "ElementEvent.h"
+#include "Rectangle.h"
 
 namespace LibRocketNet {
 
@@ -25,10 +25,10 @@ protected:
 public:
 	virtual ~Element();
 
-	property Rectangle Size {	Rectangle get();	}
-	property PointF RelativeOffset {	PointF get();	}
-	property PointF AbsoluteOffset {	PointF get();	}
-	property PointF AbsolutePosition {	PointF get();	}
+	property RectangleF Size {	RectangleF get();	}
+	property Vector2f RelativeOffset {	Vector2f get();	}
+	property Vector2f AbsoluteOffset {	Vector2f get();	}
+	property Vector2f AbsolutePosition { Vector2f get();	}
 
 	Element^ Clone();
 
@@ -42,24 +42,24 @@ public:
 	String^ GetAddress(bool includePseudoClasses);
 	String^ GetAddress() {  return GetAddress(false); }
 
-	void SetOffset(PointF offset, Element^ offsetParent, bool offsetFixed);
-	void SetOffset(PointF offset, Element^ offsetParent) { SetOffset(offset, offsetParent, false); }
+	void SetOffset(Vector2f offset, Element^ offsetParent, bool offsetFixed);
+	void SetOffset(Vector2f offset, Element^ offsetParent) { SetOffset(offset, offsetParent, false); }
 
-	property Rectangle ClientArea { Rectangle get(); void set(Rectangle r); }
+	property RectangleF ClientArea { RectangleF get(); void set(RectangleF r); }
 
-	void SetContentBox(PointF contentOffset, PointF contentBox);
-	void SetBox(Rectangle box);
-	void AddBox(Rectangle box);
+	void SetContentBox(Vector2f contentOffset, Vector2f contentBox);
+	void SetBox(RectangleF box);
+	void AddBox(RectangleF box);
 
-	Rectangle GetBox(int index);
-	Rectangle GetBox() { return GetBox(0); }
+	RectangleF GetBox(int index);
+	RectangleF GetBox() { return GetBox(0); }
 
 	property int NumBoxes {	int get();	}
 
 	virtual property float Baseline {	virtual float get();	}
 
-	virtual bool GetIntrinsicDimensions(PointF% point);
-	virtual bool IsPointWithinElement(PointF point);
+	virtual bool GetIntrinsicDimensions(Vector2f% point);
+	virtual bool IsPointWithinElement(Vector2f point);
 
 	property bool IsVisible { bool get();	}
 
@@ -78,7 +78,7 @@ public:
 	void GetDimensionProperties (String^% width, String^% height);
 	void GetLocalDimensionProperties (String^% width, String^% height);
 
-	property Point OverflowProperty { Point get(); }
+	property Vector2i OverflowProperty { Vector2i get(); }
 	property int PositionProperty { int get(); }
 	property int FloatProperty { int get(); }
 	property int DisplayProperty { int get(); }
@@ -127,7 +127,7 @@ public:
 	property float ScrollLeft { float get(); void set(float s); }
 	property float ScrollTop { float get(); void set(float s); }
 
-	property PointF ScrollSize { PointF get(); }
+	property Vector2f ScrollSize { Vector2f get(); }
 
 	property ElementDocument^ OwnerDocument { ElementDocument^ get(); }
 	

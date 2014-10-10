@@ -16,9 +16,9 @@ public ref class Core abstract
 {
 	static SystemInterface^ _systemInterface;
 	static RenderInterface^ _renderInterface;
-	static FileInterface _fileInterface;
+	static FileInterface^ _fileInterface;
 
-	static System::Collections::Generic::List<Context^>^ _contexts;
+	static System::Collections::Generic::Dictionary<IntPtr,Context^>^ _contexts;
 
 public:
 	static bool Initialize();
@@ -29,8 +29,8 @@ public:
 	static property RenderInterface^ RenderInterface { LibRocketNet::RenderInterface^ get(); void set(LibRocketNet::RenderInterface^ s); }
 	static property FileInterface^ FileInterface { LibRocketNet::FileInterface^ get(); void set(LibRocketNet::FileInterface^ s); }
 
-	static Context^ CreateContext(String^ name, Point dimensions, LibRocketNet::RenderInterface^ renderInterface);
-	static Context^ CreateContext(String^ name, Point dimensions) { return CreateContext(name, dimensions, nullptr); }
+	static Context^ CreateContext(String^ name, Vector2i dimensions, LibRocketNet::RenderInterface^ renderInterface);
+	static Context^ CreateContext(String^ name, Vector2i dimensions) { return CreateContext(name, dimensions, nullptr); }
 
 	static Context^ GetContext(String^ name);
 	static Context^ GetContext(int index);
@@ -38,7 +38,7 @@ public:
 	static property int NumContexts { int get(); }
 	
 	static void RegisterPlugin(Plugin^ plugin);
-	static void ReleaseCompiledGeometry();
+	static void ReleaseCompiledGeometries();
 	static void ReleaseTextures();
 };
 

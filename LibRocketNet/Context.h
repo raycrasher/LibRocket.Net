@@ -16,8 +16,11 @@ ref class RenderInterface;
 
 public ref class Context
 {
+internal:
+	Context(Rocket::Core::Context * ctx);
+
 public:
-	Context();
+	
 	virtual ~Context();
 
 	property String^ Name { String^ get(); }
@@ -64,7 +67,7 @@ public:
 	bool SetActiveClipRegion(Vector2i origin, Vector2i dimensions);
 
 internal:
-	RocketContext *_context;
+	IntPtr ContextPtr;
 
 };
 
