@@ -1,5 +1,5 @@
-*\Debug
-*\Release
+Debug
+Release
 *.opensdf
 *.sdf
 *.suo

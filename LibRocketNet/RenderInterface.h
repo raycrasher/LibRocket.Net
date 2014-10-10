@@ -3,7 +3,6 @@
 #include "Vertex.h"
 
 using namespace System;
-using namespace System::Drawing;
 
 
 namespace Rocket {

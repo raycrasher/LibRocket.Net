@@ -9,19 +9,9 @@
 #define CHECK_NULL_ELEM(_Def) if(!element) if(LibRocket::ThrowIfElementDestroyed) throw gcnew InvalidOperationException("Element already disposed."); else return _Def;
 #define CHECK_NULL_ELEM_VOID() if(!element) if(LibRocket::ThrowIfElementDestroyed) throw gcnew InvalidOperationException("Element already disposed."); else return;
 
-#define ELEMENT_ATTRIBUTE_NAME "___LIBROCKETNET_GCROOT___"
+#define ELEMENT_ATTRIBUTE_NAME "___LIBROCKETNET_ELEMENT_GCROOT___"
 
 namespace LibRocketNet {
-
-gcroot<Element^>* GetGcRoot(RocketElement* elem){
-	if(!elem) throw gcnew ArgumentNullException();
-	return (gcroot<Element^>*) elem->GetAttribute<void *>(ELEMENT_ATTRIBUTE_NAME,NULL);
-}
-
-void SetGcRoot(RocketElement* elem, gcroot<Element^>* r){
-	if(!elem || !r) throw gcnew ArgumentNullException();
-	elem->SetAttribute(ELEMENT_ATTRIBUTE_NAME,(void *)r);
-}
 
 RectangleF Element::Size::get(){
 	CHECK_NULL_ELEM(RectangleF());
@@ -65,17 +55,20 @@ void Element::SetAttribute(String^ attribute, String^ value) {
 
 Element::Element(RocketElement* elem){
 	if(!elem) throw gcnew ArgumentNullException("Attempted to create a LibRocket element with a null raw pointer");
-	auto root=GetGcRoot(elem);
+	auto root = Util::GetGcRoot(elem, ELEMENT_ATTRIBUTE_NAME);
 	if(root) throw gcnew ArgumentException("Attempted to create a LibRocket element with a raw pointer with an existing Tag");
 	element=elem;
 	auto r=new gcroot<Element ^>();
 	*r=this;
 	SetGcRoot(elem,r);
+	elem->AddReference();
 	_children = gcnew ElementCollection(this);
 }
 
 Element::~Element(){
+	element->RemoveReference();
 	element=NULL;
+	
 }
 
 bool Element::IsPseudoClassSet(String^ pseudoclass)

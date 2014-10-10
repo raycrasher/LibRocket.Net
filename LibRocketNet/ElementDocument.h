@@ -14,9 +14,12 @@ namespace LibRocketNet {
 
 	public ref class ElementDocument : public Element
 	{
-	internal:
+	protected:
 		ElementDocument(Rocket::Core::ElementDocument * doc);
+	internal:
+		Rocket::Core::ElementDocument* DocumentPtr;
 
+		static ElementDocument^ Create(Rocket::Core::ElementDocument* doc);
 	public:
 
 		enum class FocusFlags
@@ -26,7 +29,7 @@ namespace LibRocketNet {
 			Modal = (1 << 2)
 		};
 
-		virtual ~ElementDocument();
+		virtual ~ElementDocument(){}
 
 		property LibRocketNet::Context^ Context { LibRocketNet::Context^ get(); }
 		property String^ Title { String^ get(); void set(String^ s); }

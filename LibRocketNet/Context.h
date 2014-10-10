@@ -41,7 +41,8 @@ public:
 	ElementDocument^ LoadMouseCursor(String^ documentPath);
 	void UnloadMouseCursor(String^ cursorName);
 	void UnloadAllMouseCursors();
-	bool SetMouseCursor(bool show);
+	void ShowMouseCursor(bool show);
+	bool SetMouseCursor(String^ cursor);
 	
 	ElementDocument^ GetDocument(String^ id);
 	ElementDocument^ GetDocument(int index);
@@ -67,7 +68,7 @@ public:
 	bool SetActiveClipRegion(Vector2i origin, Vector2i dimensions);
 
 internal:
-	IntPtr ContextPtr;
+	Rocket::Core::Context * ContextPtr;
 
 };
 

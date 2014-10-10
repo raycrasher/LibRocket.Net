@@ -1,7 +1,6 @@
 #pragma once
 
 using namespace System;
-using namespace System::Drawing;
 using namespace System::Collections::Generic;
 
 namespace LibRocketNet {
@@ -37,7 +36,6 @@ public:
 
 	static property int NumContexts { int get(); }
 	
-	static void RegisterPlugin(Plugin^ plugin);
 	static void ReleaseCompiledGeometries();
 	static void ReleaseTextures();
 };
