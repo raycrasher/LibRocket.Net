@@ -1,7 +1,11 @@
 #include "stdafx.h"
+
+#include "Rocket/Core/Context.h"
+
 #include "Context.h"
 #include "Util.h"
-#include "Rocket/Core/Context.h"
+#include "Element.h"
+#include "ElementDocument.h"
 
 namespace LibRocketNet {
 
@@ -37,19 +41,19 @@ namespace LibRocketNet {
 	ElementDocument^ Context::CreateDocument(String^ tag) {
 		auto docPtr = ContextPtr->CreateDocument(Util::ToRocketString(tag));
 		if (!docPtr) return nullptr;
-		return gcnew ElementDocument(docPtr);
+		return ElementDocument::Create(docPtr);
 	}
 
 	ElementDocument^ Context::LoadDocument(String^ documentPath) {
 		auto docPtr = ContextPtr->LoadDocument(Util::ToRocketString(documentPath));
 		if (!docPtr) return nullptr;
-		return gcnew ElementDocument(docPtr);
+		return ElementDocument::Create(docPtr);
 	}
 
 	ElementDocument^ Context::LoadDocumentFromMemory(String^ str) {
 		auto docPtr = ContextPtr->LoadDocumentFromMemory(Util::ToRocketString(str));
 		if (!docPtr) return nullptr;
-		return gcnew ElementDocument(docPtr);
+		return ElementDocument::Create(docPtr);
 	}
 
 	void Context::UnloadDocument(ElementDocument^ document) {
@@ -76,7 +80,7 @@ namespace LibRocketNet {
 	}
 
 	void Context::UnloadAllMouseCursors() {
-		ContextPtr->UnloadAllMouseCursors(); 
+		ContextPtr->UnloadAllMouseCursors();
 	}
 
 	void Context::ShowMouseCursor(bool show) {
@@ -87,32 +91,79 @@ namespace LibRocketNet {
 		return ContextPtr->SetMouseCursor(Util::ToRocketString(cursor));
 	}
 
-	ElementDocument^ GetDocument(String^ id) {
-		
+	ElementDocument^ Context::GetDocument(String^ id) {
+		return ElementDocument::Create(ContextPtr->GetDocument(Util::ToRocketString(id)));
 	}
 
-	ElementDocument^ GetDocument(int index);
+	ElementDocument^ Context::GetDocument(int index) {
+		return ElementDocument::Create(ContextPtr->GetDocument(index));
+	}
 
 	int Context::NumDocuments::get() {
 		return ContextPtr->GetNumDocuments();
 	}
 
-	property Element^ HoverElement{ Element^ get(); }
-	property Element^ FocusElement{ Element^ get(); }
-	property Element^ RootElement{ Element^ get(); }
+	Element^ Context::HoverElement::get() {
+		return Element::Create(ContextPtr->GetHoverElement());
+	}
 
-	void PullDocumentToFront(ElementDocument^ document);
-	void PushDocumentToBack(ElementDocument^ document);
+	Element^ Context::FocusElement::get(){
+		return Element::Create(ContextPtr->GetFocusElement());
+	}
 
-	bool ProcessKeyDown(KeyIdentifiers key, KeyModifier modifiers);
-	bool ProcessKeyUp(KeyIdentifiers key, KeyModifier modifiers);
-	bool ProcessTextInput(unsigned short int word);
-	void ProcessMouseMove(int x, int y, int keyModifierState);
-	void ProcessMouseButtonDown(int buttonIndex, int keyModifierState);
-	void ProcessMouseButtonUp(int buttonIndex, int keyModifierState);
-	void ProcessMouseWheel(int wheelDelta, int keyModifierState);
+	Element^ Context::RootElement::get(){
+		return Element::Create(ContextPtr->GetRootElement());
+	}
 
-	property RenderInterface^ RenderInterface { LibRocketNet::RenderInterface^ get(); }
-	bool GetActiveClipRegion(Vector2i% origin, Vector2i% dimensions);
-	bool SetActiveClipRegion(Vector2i origin, Vector2i dimensions);
+	void Context::PullDocumentToFront(ElementDocument^ document) {
+		ContextPtr->PullDocumentToFront(document->DocumentPtr);
+	}
+
+	void Context::PushDocumentToBack(ElementDocument^ document) {
+		ContextPtr->PushDocumentToBack(document->DocumentPtr);
+	}
+
+	bool Context::ProcessKeyDown(KeyIdentifiers key, KeyModifier modifiers) {
+		ContextPtr->ProcessKeyDown((Rocket::Core::Input::KeyIdentifier)key, (int)modifiers);
+	}
+
+	bool Context::ProcessKeyUp(KeyIdentifiers key, KeyModifier modifiers){
+		ContextPtr->ProcessKeyUp((Rocket::Core::Input::KeyIdentifier)key, (int)modifiers);
+	}
+
+	bool Context::ProcessTextInput(unsigned short int word) {
+		ContextPtr->ProcessTextInput(word);
+	}
+
+	void Context::ProcessMouseMove(int x, int y, KeyModifier keyModifierState) {
+		ContextPtr->ProcessMouseMove(x, y, (int)keyModifierState);
+	}
+
+	void Context::ProcessMouseButtonDown(int buttonIndex, KeyModifier keyModifierState) {
+		ContextPtr->ProcessMouseButtonDown(buttonIndex, (int)keyModifierState);
+	}
+
+	void Context::ProcessMouseButtonUp(int buttonIndex, KeyModifier keyModifierState) {
+		ContextPtr->ProcessMouseButtonUp(buttonIndex, (int)keyModifierState);
+	}
+
+	void Context::ProcessMouseWheel(int wheelDelta, KeyModifier keyModifierState) {
+		ContextPtr->ProcessMouseWheel(wheelDelta, (int)keyModifierState);
+	}
+
+	RenderInterface^ Context::RenderInterface::get() {
+		return _renderInterface;
+	}
+
+	bool Context::GetActiveClipRegion(Vector2i% origin, Vector2i% dimensions) {
+		RVector2i o;
+		RVector2i d;
+		ContextPtr->GetActiveClipRegion(o, d);
+		origin = Vector2i(o.x,o.y);
+		dimensions = Vector2i(d.x, d.y);
+	}
+
+	bool Context::SetActiveClipRegion(Vector2i origin, Vector2i dimensions) {
+		ContextPtr->SetActiveClipRegion(RVector2i(origin.X, origin.Y), RVector2i(dimensions.X, dimensions.Y));
+	}
 }

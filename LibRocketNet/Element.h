@@ -155,11 +155,11 @@ public:
 		void raise(Object^ s, args ^ e) { if(_event##name != nullptr) _event##name->Invoke(s, e); } \
 	}   
 
-#define ELEMENT_HANDLE_EVENT(__handler, evt, str) \
+#define ELEMENT_HANDLE_EVENT(__handler, __evt, __str) \
 { \
 	auto handler=new __handler(); \
-	handler->Handlers = this->_event##evt;   \
-	element->AddEventListener(str, handler); \
+	handler->Handlers = this->_event##__evt;   \
+	element->AddEventListener(__str, handler); \
 }
 
 

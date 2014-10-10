@@ -12,7 +12,7 @@
 
 
 
-namespace LibRocketNet{
+namespace LibRocketNet {
 
 	bool Core::Initialize() {
 		_contexts = gcnew Dictionary<IntPtr,Context^>();
@@ -61,6 +61,7 @@ namespace LibRocketNet{
 		Rocket::Core::RenderInterface * rPtr = _renderInterface == nullptr ? NULL : (_renderInterface->Interface.ToPointer);
 		IntPtr ctxPtr = IntPtr(Rocket::Core::CreateContext(Util::ToRocketString(name), Rocket::Core::Vector2i(dimensions.X, dimensions.Y), rPtr));
 		auto ctx = gcnew Context(ctxPtr.ToPointer);
+		ctx->_renderInterface = renderInterface;
 		_contexts[ctxPtr] = ctx;
 		return ctx;
 	}

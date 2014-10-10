@@ -2,7 +2,6 @@
 
 #include "LibRocketNet.h"
 #include "Vector2.h"
-#include "ElementDocument.h"
 #include "Constants.h"
 
 using namespace System;
@@ -13,6 +12,8 @@ typedef Rocket::Core::Context RocketContext;
 namespace LibRocketNet {
 
 ref class RenderInterface;
+ref class ElementDocument;
+ref class Element;
 
 public ref class Context
 {
@@ -58,10 +59,10 @@ public:
 	bool ProcessKeyDown(KeyIdentifiers key, KeyModifier modifiers);
 	bool ProcessKeyUp(KeyIdentifiers key, KeyModifier modifiers);
 	bool ProcessTextInput(unsigned short int word);
-	void ProcessMouseMove(int x, int y, int keyModifierState);
-	void ProcessMouseButtonDown(int buttonIndex, int keyModifierState);
-	void ProcessMouseButtonUp(int buttonIndex, int keyModifierState);
-	void ProcessMouseWheel(int wheelDelta, int keyModifierState);
+	void ProcessMouseMove(int x, int y, KeyModifier keyModifierState);
+	void ProcessMouseButtonDown(int buttonIndex, KeyModifier keyModifierState);
+	void ProcessMouseButtonUp(int buttonIndex, KeyModifier keyModifierState);
+	void ProcessMouseWheel(int wheelDelta, KeyModifier keyModifierState);
 
 	property RenderInterface^ RenderInterface { LibRocketNet::RenderInterface^ get(); }
 	bool GetActiveClipRegion(Vector2i% origin, Vector2i% dimensions);
@@ -69,7 +70,7 @@ public:
 
 internal:
 	Rocket::Core::Context * ContextPtr;
-
+	LibRocketNet::RenderInterface ^ _renderInterface;
 };
 
 

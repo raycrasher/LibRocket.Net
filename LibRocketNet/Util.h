@@ -1,8 +1,9 @@
 #pragma once
 
+#include <gcroot.h>
 #include "LibRocketNet.h"
 
-
+using namespace System;
 
 namespace LibRocketNet {
 
