@@ -112,34 +112,34 @@ void Element::InitHandlers(){
 	ELEMENT_HANDLE_EVENT(TextInputEventHandler,TextInput, "textinput");
 
 
-	ELEMENT_HANDLE_EVENT(MouseEventHandler,Click, "mouse_click");
-	ELEMENT_HANDLE_EVENT(MouseEventHandler,DoubleClick, "mouse_dblclick");
-	ELEMENT_HANDLE_EVENT(MouseEventHandler,MouseOver, "mouse_hover");
-	ELEMENT_HANDLE_EVENT(MouseEventHandler,MouseOut, "mouse_out");
-	ELEMENT_HANDLE_EVENT(MouseEventHandler,MouseMove, "mouse_move");
-	ELEMENT_HANDLE_EVENT(MouseEventHandler,MouseUp, "mouse_up");
-	ELEMENT_HANDLE_EVENT(MouseEventHandler,MouseDown, "mouse_down");
-	ELEMENT_HANDLE_EVENT(MouseEventHandler,MouseScroll, "mouse_wheeldelta");
+	ELEMENT_HANDLE_EVENT(MouseEventHandler,Click, "click");
+	ELEMENT_HANDLE_EVENT(MouseEventHandler,DoubleClick, "dblclick");
+	ELEMENT_HANDLE_EVENT(MouseEventHandler,MouseOver, "mouseover");
+	ELEMENT_HANDLE_EVENT(MouseEventHandler,MouseOut, "mouseout");
+	ELEMENT_HANDLE_EVENT(MouseEventHandler,MouseMove, "mousemove");
+	ELEMENT_HANDLE_EVENT(MouseEventHandler,MouseUp, "mouseup");
+	ELEMENT_HANDLE_EVENT(MouseEventHandler,MouseDown, "mousedown");
+	ELEMENT_HANDLE_EVENT(MouseEventHandler,MouseScroll, "mousescroll");
 
-	ELEMENT_HANDLE_EVENT(DragEventHandler,DragStart, "drag_start");
-	ELEMENT_HANDLE_EVENT(DragEventHandler,DragEnd, "drag_end");
+	ELEMENT_HANDLE_EVENT(DragEventHandler,DragStart, "dragstart");
+	ELEMENT_HANDLE_EVENT(DragEventHandler,DragEnd, "dragend");
 	ELEMENT_HANDLE_EVENT(DragEventHandler,Drag, "drag");
 
-	ELEMENT_HANDLE_EVENT(FormSubmitEventHandler,FormSubmit, "form_submit");
+	ELEMENT_HANDLE_EVENT(FormSubmitEventHandler,FormSubmit, "submit");
 
-	ELEMENT_HANDLE_EVENT(FormControlChangeEventHandler,FormControlChange, "form_change");
+	ELEMENT_HANDLE_EVENT(FormControlChangeEventHandler,FormControlChange, "change");
 
 	ELEMENT_HANDLE_EVENT(ElementEventHandler,Load, "load");
 	ELEMENT_HANDLE_EVENT(ElementEventHandler,Unload, "unload");
 
-	ELEMENT_HANDLE_EVENT(HandleEventHandler,HandleDrag,"handle_drag");
+	ELEMENT_HANDLE_EVENT(HandleEventHandler,HandleDrag,"handledrag");
 
-	ELEMENT_HANDLE_EVENT(DataGridAddColumnEventHandler,ColumnAdd,"column_add");
-	ELEMENT_HANDLE_EVENT(ElementEventHandler,RowUpdate,"row_update");
-	ELEMENT_HANDLE_EVENT(DataGridRowEventHandler,RowAdd,"row_add");
-	ELEMENT_HANDLE_EVENT(DataGridRowEventHandler,RowRemove,"row_remove");
+	ELEMENT_HANDLE_EVENT(DataGridAddColumnEventHandler,ColumnAdd,"columnadd");
+	ELEMENT_HANDLE_EVENT(ElementEventHandler,RowUpdate,"rowupdate");
+	ELEMENT_HANDLE_EVENT(DataGridRowEventHandler,RowAdd,"rowadd");
+	ELEMENT_HANDLE_EVENT(DataGridRowEventHandler,RowRemove,"rowremove");
 
-	ELEMENT_HANDLE_EVENT(TabChangeEventHandler,TabChange,"tab_change");
+	ELEMENT_HANDLE_EVENT(TabChangeEventHandler,TabChange,"tabchange");
 }
 
 }

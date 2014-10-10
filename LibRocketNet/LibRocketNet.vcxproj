@@ -43,13 +43,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>E:\Zero\libRocket-master\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>E:\Zero\libRocket-master\bin\Debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(LibRocket)\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibRocket)\Include;$(IncludePath)\bin\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>E:\Zero\libRocket-master\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>E:\Zero\libRocket-master\bin\MinSizeRel;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(LibRocket)\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibRocket)\Include;$(IncludePath)\bin\MinSizeRel;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
