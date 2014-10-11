@@ -23,9 +23,6 @@ namespace LibRocketNet {
 
 	public ref class LibRocket abstract {
 	public:
-		static bool ThrowIfElementDestroyed;
-
-		static void Initialize();
-		
+		static bool ThrowIfElementDestroyed;	
 	};
 }

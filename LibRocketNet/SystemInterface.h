@@ -22,7 +22,7 @@ namespace LibRocketNet {
 	public ref class SystemInterface abstract
 	{
 	internal:
-		IntPtr _systemInterfacePtr;
+		InternalSystemInterface *SystemInterfacePtr;
 		bool _methodUnused;
 	protected:
 		SystemInterface(void);

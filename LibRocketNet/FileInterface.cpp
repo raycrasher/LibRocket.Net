@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "FileInterface.h"
 
-
-FileInterface::FileInterface()
-{
+namespace LibRocketNet {
+	FileInterface::FileInterface()
+	{
+	}
 }
