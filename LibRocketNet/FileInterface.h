@@ -1,13 +1,17 @@
 #pragma once
 
+#include "LibRocketNet.h"
+
 using namespace System;
+
+ROCKET_FORWARD_DECLARE(class FileInterface);
 
 namespace LibRocketNet {
 
 	public ref class FileInterface abstract
 	{
 	internal:
-		IntPtr _fileInterfacePtr;
+		Rocket::Core::FileInterface *_fileInterfacePtr;
 		bool _methodUnused;
 	protected:
 		FileInterface();
@@ -20,6 +24,7 @@ namespace LibRocketNet {
 		virtual bool Seek(IntPtr filehandle, long offset, int origin) abstract;
 		virtual size_t Tell(IntPtr filehandle) abstract;
 		virtual size_t Length(IntPtr filehandle) { _methodUnused = true; }
+		virtual void Release() { _methodUnused = true; }
 	};
 
 }
