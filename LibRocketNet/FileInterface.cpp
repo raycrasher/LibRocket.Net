@@ -54,12 +54,11 @@ namespace LibRocketNet {
 
 	FileInterface::FileInterface()
 	{
-		auto fPtr = new InternalFileInterface();
-		fPtr->_netInterface = this;
-		_fileInterfacePtr = fPtr;
+		_nativeInterface = new InternalFileInterface();
+		_nativeInterface->_netInterface = this;
 	}
 
 	FileInterface::~FileInterface() {
-		delete _fileInterfacePtr;
+		delete _nativeInterface;
 	}
 }

@@ -11,12 +11,16 @@ namespace Rocket {
 	}
 }
 
+ROCKET_FORWARD_DECLARE(class RenderInterface);
+
 namespace LibRocketNet {
 
 typedef IntPtr TextureHandle;
 typedef IntPtr CompiledGeometryHandle;
 
 ref class Context;
+
+class InternalRenderInterface;
 
 public ref class RenderInterface abstract
 {
@@ -43,7 +47,7 @@ public:
 	property Context^ Context { LibRocketNet::Context^ get(); }
 
 internal:
-	System::IntPtr Interface;
+	InternalRenderInterface* _nativeInterface;
 
 	LibRocketNet::Context^ _context;
 };

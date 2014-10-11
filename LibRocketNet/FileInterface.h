@@ -8,10 +8,12 @@ ROCKET_FORWARD_DECLARE(class FileInterface);
 
 namespace LibRocketNet {
 
+	class InternalFileInterface;
+
 	public ref class FileInterface abstract
 	{
 	internal:
-		Rocket::Core::FileInterface *_fileInterfacePtr;
+		InternalFileInterface *_nativeInterface;
 		bool _methodUnused;
 	protected:
 		FileInterface();

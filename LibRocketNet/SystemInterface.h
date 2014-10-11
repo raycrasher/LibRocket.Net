@@ -18,11 +18,12 @@ namespace LibRocketNet {
 		Count
 	};
 
+	class InternalSystemInterface;
 
 	public ref class SystemInterface abstract
 	{
 	internal:
-		InternalSystemInterface *SystemInterfacePtr;
+		InternalSystemInterface *_nativeInterface;
 		bool _methodUnused;
 	protected:
 		SystemInterface(void);
