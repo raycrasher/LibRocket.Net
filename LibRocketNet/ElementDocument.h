@@ -5,9 +5,6 @@
 
 using namespace System;
 
-
-ROCKET_FORWARD_DECLARE(class ElementDocument);
-
 namespace LibRocketNet {
 
 	ref class Context;

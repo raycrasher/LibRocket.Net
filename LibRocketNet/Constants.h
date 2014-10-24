@@ -221,7 +221,7 @@ public enum class KeyIdentifiers {
 };
 
 
-[System:Flags]
+[System::Flags]
 public enum class KeyModifier
 {
 	Control = 1 << 0,		// Set if at least one Ctrl key is depressed.

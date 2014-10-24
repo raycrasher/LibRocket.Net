@@ -6,7 +6,6 @@
 
 using namespace System;
 
-ROCKET_FORWARD_DECLARE(class Context);
 typedef Rocket::Core::Context RocketContext;
 
 namespace LibRocketNet {
@@ -66,7 +65,7 @@ public:
 
 	property RenderInterface^ RenderInterface { LibRocketNet::RenderInterface^ get(); }
 	bool GetActiveClipRegion(Vector2i% origin, Vector2i% dimensions);
-	bool SetActiveClipRegion(Vector2i origin, Vector2i dimensions);
+	void SetActiveClipRegion(Vector2i origin, Vector2i dimensions);
 
 internal:
 	Rocket::Core::Context * ContextPtr;

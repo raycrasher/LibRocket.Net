@@ -1,3 +1,4 @@
+#include "Stdafx.h"
 #include <gcroot.h>
 #include "Rocket/Core/Element.h"
 #include "Util.h"

@@ -53,20 +53,18 @@ namespace LibRocketNet {
 	}
 
 	void Core::FileInterface::set(LibRocketNet::FileInterface^ f) {
-		FileInterface = f;
+		_fileInterface = f;
 	}
 
 	Context^ Core::CreateContext(String^ name, Vector2i dimensions, LibRocketNet::RenderInterface^ renderInterface) {
 
-		Rocket::Core::RenderInterface * rPtr = _renderInterface == nullptr ? NULL : (_renderInterface->Interface.ToPointer);
-		IntPtr ctxPtr = IntPtr(Rocket::Core::CreateContext(Util::ToRocketString(name), Rocket::Core::Vector2i(dimensions.X, dimensions.Y), rPtr));
-		auto ctx = gcnew Context(ctxPtr.ToPointer);
+		auto rPtr = (_renderInterface == nullptr ? NULL : _renderInterface->_nativeInterface);
+		IntPtr ctxPtr = IntPtr(Rocket::Core::CreateContext(Util::ToRocketString(name), Rocket::Core::Vector2i(dimensions.X, dimensions.Y), (Rocket::Core::RenderInterface*) rPtr));
+		auto ctx = gcnew Context((Rocket::Core::Context *) ctxPtr.ToPointer());
 		ctx->_renderInterface = renderInterface;
 		_contexts[ctxPtr] = ctx;
 		return ctx;
 	}
-
-	Context^ Core::CreateContext(String^ name, Vector2i dimensions) { return CreateContext(name, dimensions, nullptr); }
 
 	Context^ Core::GetContext(String^ name) {
 		auto ptr = Rocket::Core::GetContext(Util::ToRocketString(name));

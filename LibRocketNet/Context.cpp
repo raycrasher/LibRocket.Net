@@ -1,11 +1,11 @@
 #include "stdafx.h"
 
-#include "Rocket/Core/Context.h"
-
 #include "Context.h"
 #include "Util.h"
 #include "Element.h"
 #include "ElementDocument.h"
+
+#include "Rocket/Core/Context.h"
 
 namespace LibRocketNet {
 
@@ -31,11 +31,11 @@ namespace LibRocketNet {
 	}
 
 	bool Context::Update() {
-		ContextPtr->Update();
+		return ContextPtr->Update();
 	}
 
 	bool Context::Render() {
-		ContextPtr->Render();
+		return ContextPtr->Render();
 	}
 
 	ElementDocument^ Context::CreateDocument(String^ tag) {
@@ -124,15 +124,15 @@ namespace LibRocketNet {
 	}
 
 	bool Context::ProcessKeyDown(KeyIdentifiers key, KeyModifier modifiers) {
-		ContextPtr->ProcessKeyDown((Rocket::Core::Input::KeyIdentifier)key, (int)modifiers);
+		return ContextPtr->ProcessKeyDown((Rocket::Core::Input::KeyIdentifier)key, (int)modifiers);
 	}
 
 	bool Context::ProcessKeyUp(KeyIdentifiers key, KeyModifier modifiers){
-		ContextPtr->ProcessKeyUp((Rocket::Core::Input::KeyIdentifier)key, (int)modifiers);
+		return ContextPtr->ProcessKeyUp((Rocket::Core::Input::KeyIdentifier)key, (int)modifiers);
 	}
 
 	bool Context::ProcessTextInput(unsigned short int word) {
-		ContextPtr->ProcessTextInput(word);
+		return ContextPtr->ProcessTextInput(word);
 	}
 
 	void Context::ProcessMouseMove(int x, int y, KeyModifier keyModifierState) {
@@ -158,12 +158,13 @@ namespace LibRocketNet {
 	bool Context::GetActiveClipRegion(Vector2i% origin, Vector2i% dimensions) {
 		RVector2i o;
 		RVector2i d;
-		ContextPtr->GetActiveClipRegion(o, d);
+		auto ret = ContextPtr->GetActiveClipRegion(o, d);
 		origin = Vector2i(o.x,o.y);
 		dimensions = Vector2i(d.x, d.y);
+		return ret;
 	}
 
-	bool Context::SetActiveClipRegion(Vector2i origin, Vector2i dimensions) {
+	void Context::SetActiveClipRegion(Vector2i origin, Vector2i dimensions) {
 		ContextPtr->SetActiveClipRegion(RVector2i(origin.X, origin.Y), RVector2i(dimensions.X, dimensions.Y));
 	}
 }

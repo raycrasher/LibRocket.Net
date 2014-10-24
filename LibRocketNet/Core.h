@@ -3,6 +3,8 @@
 using namespace System;
 using namespace System::Collections::Generic;
 
+#include "Vector2.h"
+
 namespace LibRocketNet {
 
 ref class SystemInterface;

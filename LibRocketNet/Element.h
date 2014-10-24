@@ -10,8 +10,8 @@ using namespace System::Collections;
 
 namespace LibRocketNet {
 
-gcroot<Element^>* GetGcRoot(RocketElement* elem);
-void SetGcRoot(RocketElement* elem, gcroot<Element^>* r);
+gcroot < Element^ > * GetGcRoot(RocketElement* elem);
+void SetGcRoot(RocketElement* elem, gcroot < Element^ > * r);
 
 ref class Context;
 ref class ElementCollection;
@@ -94,8 +94,8 @@ public:
 	bool IsPseudoClassSet(String^ pseudoclass);
 	void SetPseudoClass(String^ pseudoClass, bool activate);
 	void SetPseudoClass(String^ pseudoClass) { SetPseudoClass(pseudoClass, true); }
-	bool ArePseudoClassesSet(Generic::IEnumerable<String^>^ classes);
-	property Generic::IEnumerable<String^>^ ActivePseudoClasses { Generic::IEnumerable<String^>^ get(); }
+	bool ArePseudoClassesSet(Generic::IEnumerable<String^ > ^ classes);
+	property Generic::IEnumerable<String^ > ^ ActivePseudoClasses { Generic::IEnumerable<String^ > ^ get(); }
 
 	void SetAttribute(String^ attribute, int value);
 	void SetAttribute(String^ attribute, float value);
@@ -143,67 +143,49 @@ public:
 	void BlurElement();
 	void ClickElement();
 
-	// events
+public:
+	
+	event EventHandler < ElementEventArgs^ >^ Show;
+	event EventHandler < ElementEventArgs^ >^ Hide;
+	event EventHandler < ElementEventArgs^ >^ Resize;
+	event EventHandler < ElementEventArgs^ >^ Scroll;
+	event EventHandler < ElementEventArgs^ >^ Focus;
+	event EventHandler < ElementEventArgs^ >^ Blur;
 
-#define ELEMENT_DEFINE_EVENT(args, name) \
-	private: \
-	EventHandler< args ^ >^ _event##name; \
-	public:\
-	event EventHandler < args ^>^ name {                \
-		void add(EventHandler< args ^>^e) { _event##name = static_cast<EventHandler< args ^ >^> (Delegate::Combine(_event##name, e)); }				\
-		void remove(EventHandler< args ^>^e) { _event##name = static_cast<EventHandler< args ^ >^> (Delegate::Remove(_event##name, e)); }			\
-		void raise(Object^ s, args ^ e) { if(_event##name != nullptr) _event##name->Invoke(s, e); } \
-	}   
+	event EventHandler < KeyboardEventArgs^ > ^ KeyDown;
+	event EventHandler < KeyboardEventArgs^ > ^ KeyUp;
 
-#define ELEMENT_HANDLE_EVENT(__handler, __evt, __str) \
-{ \
-	auto handler=new __handler(); \
-	handler->Handlers = this->_event##__evt;   \
-	element->AddEventListener(__str, handler); \
-}
+	event EventHandler < TextInputEventArgs^ > ^ TextInput;
 
 
-	ELEMENT_DEFINE_EVENT(ElementEventArgs,Show);
-	ELEMENT_DEFINE_EVENT(ElementEventArgs,Hide);
-	ELEMENT_DEFINE_EVENT(ElementEventArgs,Resize);
-	ELEMENT_DEFINE_EVENT(ElementEventArgs,Scroll);
-	ELEMENT_DEFINE_EVENT(ElementEventArgs,Focus);
-	ELEMENT_DEFINE_EVENT(ElementEventArgs,Blur);
+	event EventHandler < MouseEventArgs^ > ^ Click;
+	event EventHandler < MouseEventArgs^ > ^ DoubleClick;
+	event EventHandler < MouseEventArgs^ > ^ MouseOver;
+	event EventHandler < MouseEventArgs^ > ^ MouseOut;
+	event EventHandler < MouseEventArgs^ > ^ MouseMove;
+	event EventHandler < MouseEventArgs^ > ^ MouseUp;
+	event EventHandler < MouseEventArgs^ > ^ MouseDown;
+	event EventHandler < MouseEventArgs^ > ^ MouseScroll;
 
-	ELEMENT_DEFINE_EVENT(KeyboardEventArgs,KeyDown);
-	ELEMENT_DEFINE_EVENT(KeyboardEventArgs,KeyUp);
+	event EventHandler < DragEventArgs^ > ^ DragStart;
+	event EventHandler < DragEventArgs^ > ^ DragEnd;
+	event EventHandler < DragEventArgs^ > ^ Drag;
 
-	ELEMENT_DEFINE_EVENT(TextInputEventArgs,TextInput);
+	event EventHandler < FormSubmitEventArgs^ > ^ FormSubmit;
 
+	event EventHandler < FormControlChangeEventArgs^ > ^ FormControlChange;
 
-	ELEMENT_DEFINE_EVENT(MouseEventArgs,Click);
-	ELEMENT_DEFINE_EVENT(MouseEventArgs,DoubleClick);
-	ELEMENT_DEFINE_EVENT(MouseEventArgs,MouseOver);
-	ELEMENT_DEFINE_EVENT(MouseEventArgs,MouseOut);
-	ELEMENT_DEFINE_EVENT(MouseEventArgs,MouseMove);
-	ELEMENT_DEFINE_EVENT(MouseEventArgs,MouseUp);
-	ELEMENT_DEFINE_EVENT(MouseEventArgs,MouseDown);
-	ELEMENT_DEFINE_EVENT(MouseEventArgs,MouseScroll);
+	event EventHandler < ElementEventArgs^ > ^ Load;
+	event EventHandler < ElementEventArgs^ > ^ Unload;
 
-	ELEMENT_DEFINE_EVENT(DragEventArgs,DragStart);
-	ELEMENT_DEFINE_EVENT(DragEventArgs,DragEnd);
-	ELEMENT_DEFINE_EVENT(DragEventArgs,Drag);
+	event EventHandler < HandleEventArgs^ > ^ HandleDrag;
 
-	ELEMENT_DEFINE_EVENT(FormSubmitEventArgs,FormSubmit);
+	event EventHandler < DataGridAddColumnEventArgs^ > ^ ColumnAdd;
+	event EventHandler < ElementEventArgs^ > ^ RowUpdate;
+	event EventHandler < DataGridRowEventArgs^ > ^ RowAdd;
+	event EventHandler < DataGridRowEventArgs^ > ^ RowRemove;
 
-	ELEMENT_DEFINE_EVENT(FormControlChangeEventArgs,FormControlChange);
-
-	ELEMENT_DEFINE_EVENT(ElementEventArgs,Load);
-	ELEMENT_DEFINE_EVENT(ElementEventArgs,Unload);
-
-	ELEMENT_DEFINE_EVENT(HandleEventArgs,HandleDrag);
-
-	ELEMENT_DEFINE_EVENT(DataGridAddColumnEventArgs,ColumnAdd);
-	ELEMENT_DEFINE_EVENT(ElementEventArgs,RowUpdate);
-	ELEMENT_DEFINE_EVENT(DataGridRowEventArgs,RowAdd);
-	ELEMENT_DEFINE_EVENT(DataGridRowEventArgs,RowRemove);
-
-	ELEMENT_DEFINE_EVENT(TabChangeEventArgs,TabChange);
+	event EventHandler < TabChangeEventArgs^ > ^ TabChange;
 
 
 
@@ -212,8 +194,51 @@ internal:
 	//void InvokeEvent(RocketString& str, ElementEventArgs^ args);
 	static Element^ Create(RocketElement* element);
 
+	void InvokeEventShow(ElementEventArgs^ args) { Show(this, args); }
+	void InvokeEventHide(ElementEventArgs^ args) { Hide(this, args); }
+	void InvokeEventResize(ElementEventArgs^ args) { Resize(this, args); }
+	void InvokeEventScroll(ElementEventArgs^ args) { Scroll(this, args); }
+	void InvokeEventFocus(ElementEventArgs^ args) { Focus(this, args); }
+	void InvokeEventBlur(ElementEventArgs^ args) { Blur(this, args); }
+
+	void InvokeEventKeyDown(KeyboardEventArgs^ args) { KeyDown(this, args); }
+	void InvokeEventKeyUp(KeyboardEventArgs^ args) { KeyUp(this, args); }
+
+	void InvokeEventTextInput(TextInputEventArgs^ args) { TextInput(this, args); }
+
+
+	void InvokeEventClick(MouseEventArgs^ args) { Click(this, args); }
+	void InvokeEventDoubleClick(MouseEventArgs^ args) { DoubleClick(this, args); }
+	void InvokeEventMouseOver(MouseEventArgs^ args) { MouseOver(this, args); }
+	void InvokeEventMouseOut(MouseEventArgs^ args) { MouseOut(this, args); }
+	void InvokeEventMouseMove(MouseEventArgs^ args) { MouseMove(this, args); }
+	void InvokeEventMouseUp(MouseEventArgs^ args) { MouseUp(this, args); }
+	void InvokeEventMouseDown(MouseEventArgs^ args) { MouseDown(this, args); }
+	void InvokeEventMouseScroll(MouseEventArgs^ args) { MouseScroll(this, args); }
+
+	void InvokeEventDragStart(DragEventArgs^ args) { DragStart(this, args); }
+	void InvokeEventDragEnd(DragEventArgs^ args) { DragEnd(this, args); }
+	void InvokeEventDrag(DragEventArgs^ args) { Drag(this, args); }
+
+	void InvokeEventFormSubmit(FormSubmitEventArgs^ args) { FormSubmit(this, args); }
+
+	void InvokeEventFormControlChange(FormControlChangeEventArgs^ args) { FormControlChange(this, args); }
+
+	void InvokeEventLoad(ElementEventArgs^ args) { Load(this, args); }
+	void InvokeEventUnload(ElementEventArgs^ args) { Unload(this, args); }
+
+	void InvokeEventHandleDrag(HandleEventArgs^ args) { HandleDrag(this, args); }
+
+	void InvokeEventColumnAdd(DataGridAddColumnEventArgs^ args) { ColumnAdd(this, args); }
+	void InvokeEventRowUpdate(ElementEventArgs^ args) { RowUpdate(this, args); }
+	void InvokeEventRowAdd(DataGridRowEventArgs^ args) { RowAdd(this, args); }
+	void InvokeEventRowRemove(DataGridRowEventArgs^ args) { RowRemove(this, args); }
+
+	void InvokeEventTabChange(TabChangeEventArgs^ args) { TabChange(this, args); }
+
 private:
 	void InitHandlers();
+
 	ElementCollection^ _children;
 
 	//void GeneralEventHandler(Object^ sender, ElementEventArgs^ args);

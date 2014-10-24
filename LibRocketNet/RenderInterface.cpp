@@ -29,7 +29,7 @@ namespace LibRocketNet {
 
 		virtual RCompiledGeometryHandle CompileGeometry(RVertex* vertices, int num_vertices, int* indices, int num_indices, RTextureHandle texture) override  {
 			_netInterface->_methodUnused = false;
-			bool result = _netInterface->CompileGeometry((Vertex *)vertices, num_vertices, indices, num_indices, (TextureHandle)(void *)texture).ToInt32;
+			RCompiledGeometryHandle result = (RCompiledGeometryHandle)_netInterface->CompileGeometry((Vertex *)vertices, num_vertices, indices, num_indices, (TextureHandle)(void *)texture).ToPointer();
 			if (_netInterface->_methodUnused)
 				return Rocket::Core::RenderInterface::CompileGeometry(vertices, num_vertices, indices, num_indices, texture);
 			else return result;
@@ -57,7 +57,7 @@ namespace LibRocketNet {
 			_netInterface->SetScissorRegion(x, y, width, height);
 		}
 
-		virtual bool LoadTexture(RTextureHandle& texture_handle, RVector2i& texture_dimensions, const RocketString& source)  override {
+		virtual bool LoadTexture(RTextureHandle& texture_handle, RVector2i& texture_dimensions, const RocketString& source) {
 			_netInterface->_methodUnused = false;
 			TextureHandle handle = TextureHandle::Zero;
 			Vector2i dimensions;
@@ -66,7 +66,7 @@ namespace LibRocketNet {
 
 			if (_netInterface->_methodUnused) return Rocket::Core::RenderInterface::LoadTexture(texture_handle, texture_dimensions, source);
 
-			texture_handle=handle.ToPointer;
+			texture_handle=(RTextureHandle) handle.ToPointer();
 			texture_dimensions.x=dimensions.X;
 			texture_dimensions.y=dimensions.Y;
 
@@ -81,7 +81,7 @@ namespace LibRocketNet {
 			if (_netInterface->_methodUnused)
 				return Rocket::Core::RenderInterface::GenerateTexture(texture_handle, source, source_dimensions);
 
-			texture_handle = handle.ToPointer;
+			texture_handle = (RTextureHandle)handle.ToPointer();
 			return result;
 		}
 

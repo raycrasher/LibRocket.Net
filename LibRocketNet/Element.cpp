@@ -1,6 +1,4 @@
 #include "stdafx.h"
-#include <gcroot.h>
-#include "Rocket/Core.h"
 #include "Util.h"
 #include "Element.h"
 #include "ElementCollection.h"
@@ -87,52 +85,60 @@ Element^ Element::Create(RocketElement* elem){
 	}
 }
 
+template<class _Handler, class _Args>
+void AddHandler(Action<_Args^>^ invoker, Rocket::Core::Element *elem, const char *eventName) {
+	auto handler = new _Handler();
+	handler->Invoker = invoker;
+	elem->AddEventListener(eventName, handler);
+}
 
 
 void Element::InitHandlers(){
 	CHECK_NULL_ELEM_VOID();
 
-	ELEMENT_HANDLE_EVENT(ElementEventHandler, Show, "show");
-	ELEMENT_HANDLE_EVENT(ElementEventHandler, Hide, "hide");
-	ELEMENT_HANDLE_EVENT(ElementEventHandler, Resize, "resize");
-	ELEMENT_HANDLE_EVENT(ElementEventHandler, Scroll, "scroll");
-	ELEMENT_HANDLE_EVENT(ElementEventHandler, Focus, "focus");
-	ELEMENT_HANDLE_EVENT(ElementEventHandler, Blur, "blur");
+	AddHandler<RocketEventListener<ElementEventArgs>, ElementEventArgs>(gcnew System::Action<ElementEventArgs^>(this, &Element::InvokeEventShow), element, "show");
 
-	ELEMENT_HANDLE_EVENT(KeyboardEventHandler,KeyDown, "keydown");
-	ELEMENT_HANDLE_EVENT(KeyboardEventHandler,KeyUp, "keyup");
+	AddHandler<RocketEventListener<ElementEventArgs>, ElementEventArgs>(gcnew System::Action<ElementEventArgs^>(this, &Element::InvokeEventShow), element, "show");
+	AddHandler<RocketEventListener<ElementEventArgs>, ElementEventArgs>(gcnew System::Action<ElementEventArgs^>(this, &Element::InvokeEventHide), element, "hide");
+	AddHandler<RocketEventListener<ElementEventArgs>, ElementEventArgs>(gcnew System::Action<ElementEventArgs^>(this, &Element::InvokeEventResize), element, "resize");
+	AddHandler<RocketEventListener<ElementEventArgs>, ElementEventArgs>(gcnew System::Action<ElementEventArgs^>(this, &Element::InvokeEventScroll), element, "scroll");
+	AddHandler<RocketEventListener<ElementEventArgs>, ElementEventArgs>(gcnew System::Action<ElementEventArgs^>(this, &Element::InvokeEventFocus), element, "focus");
+	AddHandler<RocketEventListener<ElementEventArgs>, ElementEventArgs>(gcnew System::Action<ElementEventArgs^>(this, &Element::InvokeEventBlur), element, "blur");
 
-	ELEMENT_HANDLE_EVENT(TextInputEventHandler,TextInput, "textinput");
+	AddHandler<RocketEventListener<KeyboardEventArgs>, KeyboardEventArgs>(gcnew System::Action<KeyboardEventArgs^>(this, &Element::InvokeEventKeyDown), element, "keydown");
+	AddHandler<RocketEventListener<KeyboardEventArgs>, KeyboardEventArgs>(gcnew System::Action<KeyboardEventArgs^>(this, &Element::InvokeEventKeyUp), element, "keyup");
+
+	AddHandler<RocketEventListener<TextInputEventArgs>, TextInputEventArgs>(gcnew System::Action<TextInputEventArgs^>(this, &Element::InvokeEventTextInput), element, "textinput");
 
 
-	ELEMENT_HANDLE_EVENT(MouseEventHandler,Click, "click");
-	ELEMENT_HANDLE_EVENT(MouseEventHandler,DoubleClick, "dblclick");
-	ELEMENT_HANDLE_EVENT(MouseEventHandler,MouseOver, "mouseover");
-	ELEMENT_HANDLE_EVENT(MouseEventHandler,MouseOut, "mouseout");
-	ELEMENT_HANDLE_EVENT(MouseEventHandler,MouseMove, "mousemove");
-	ELEMENT_HANDLE_EVENT(MouseEventHandler,MouseUp, "mouseup");
-	ELEMENT_HANDLE_EVENT(MouseEventHandler,MouseDown, "mousedown");
-	ELEMENT_HANDLE_EVENT(MouseEventHandler,MouseScroll, "mousescroll");
+	AddHandler<RocketEventListener<MouseEventArgs>, MouseEventArgs>(gcnew System::Action<MouseEventArgs^>(this, &Element::InvokeEventClick), element, "click");
+	AddHandler<RocketEventListener<MouseEventArgs>, MouseEventArgs>(gcnew System::Action<MouseEventArgs^>(this, &Element::InvokeEventDoubleClick), element, "dblclick");
+	AddHandler<RocketEventListener<MouseEventArgs>, MouseEventArgs>(gcnew System::Action<MouseEventArgs^>(this, &Element::InvokeEventMouseOver), element, "mouseover");
+	AddHandler<RocketEventListener<MouseEventArgs>, MouseEventArgs>(gcnew System::Action<MouseEventArgs^>(this, &Element::InvokeEventMouseOut), element, "mouseout");
+	AddHandler<RocketEventListener<MouseEventArgs>, MouseEventArgs>(gcnew System::Action<MouseEventArgs^>(this, &Element::InvokeEventMouseMove), element, "mousemove");
+	AddHandler<RocketEventListener<MouseEventArgs>, MouseEventArgs>(gcnew System::Action<MouseEventArgs^>(this, &Element::InvokeEventMouseUp), element, "mouseup");
+	AddHandler<RocketEventListener<MouseEventArgs>, MouseEventArgs>(gcnew System::Action<MouseEventArgs^>(this, &Element::InvokeEventMouseDown), element, "mousedown");
+	AddHandler<RocketEventListener<MouseEventArgs>, MouseEventArgs>(gcnew System::Action<MouseEventArgs^>(this, &Element::InvokeEventMouseScroll), element, "mousescroll");
 
-	ELEMENT_HANDLE_EVENT(DragEventHandler,DragStart, "dragstart");
-	ELEMENT_HANDLE_EVENT(DragEventHandler,DragEnd, "dragend");
-	ELEMENT_HANDLE_EVENT(DragEventHandler,Drag, "drag");
+	AddHandler<RocketEventListener<DragEventArgs>, DragEventArgs>(gcnew System::Action<DragEventArgs^>(this, &Element::InvokeEventDragStart), element, "dragstart");
+	AddHandler<RocketEventListener<DragEventArgs>, DragEventArgs>(gcnew System::Action<DragEventArgs^>(this, &Element::InvokeEventDragEnd), element, "dragend");
+	AddHandler<RocketEventListener<DragEventArgs>, DragEventArgs>(gcnew System::Action<DragEventArgs^>(this, &Element::InvokeEventDrag), element, "drag");
 
-	ELEMENT_HANDLE_EVENT(FormSubmitEventHandler,FormSubmit, "submit");
+	AddHandler<RocketEventListener<FormSubmitEventArgs>, FormSubmitEventArgs>(gcnew System::Action<FormSubmitEventArgs^>(this, &Element::InvokeEventFormSubmit), element, "submit");
 
-	ELEMENT_HANDLE_EVENT(FormControlChangeEventHandler,FormControlChange, "change");
+	AddHandler<RocketEventListener<FormControlChangeEventArgs>, FormControlChangeEventArgs>(gcnew System::Action<FormControlChangeEventArgs^>(this, &Element::InvokeEventFormControlChange), element, "change");
 
-	ELEMENT_HANDLE_EVENT(ElementEventHandler,Load, "load");
-	ELEMENT_HANDLE_EVENT(ElementEventHandler,Unload, "unload");
+	AddHandler<RocketEventListener<ElementEventArgs>, ElementEventArgs>(gcnew System::Action<ElementEventArgs^>(this, &Element::InvokeEventLoad), element, "load");
+	AddHandler<RocketEventListener<ElementEventArgs>, ElementEventArgs>(gcnew System::Action<ElementEventArgs^>(this, &Element::InvokeEventUnload), element, "unload");
 
-	ELEMENT_HANDLE_EVENT(HandleEventHandler,HandleDrag,"handledrag");
+	AddHandler<RocketEventListener<HandleEventArgs>, HandleEventArgs>(gcnew System::Action<HandleEventArgs^>(this, &Element::InvokeEventHandleDrag), element, "handledrag");
 
-	ELEMENT_HANDLE_EVENT(DataGridAddColumnEventHandler,ColumnAdd,"columnadd");
-	ELEMENT_HANDLE_EVENT(ElementEventHandler,RowUpdate,"rowupdate");
-	ELEMENT_HANDLE_EVENT(DataGridRowEventHandler,RowAdd,"rowadd");
-	ELEMENT_HANDLE_EVENT(DataGridRowEventHandler,RowRemove,"rowremove");
+	AddHandler<RocketEventListener<DataGridAddColumnEventArgs>, DataGridAddColumnEventArgs>(gcnew System::Action<DataGridAddColumnEventArgs^>(this, &Element::InvokeEventColumnAdd), element, "columnadd");
+	AddHandler<RocketEventListener<ElementEventArgs>, ElementEventArgs>(gcnew System::Action<ElementEventArgs^>(this, &Element::InvokeEventRowUpdate), element, "rowupdate");
+	AddHandler<RocketEventListener<DataGridRowEventArgs>, DataGridRowEventArgs>(gcnew System::Action<DataGridRowEventArgs^>(this, &Element::InvokeEventRowAdd), element, "rowadd");
+	AddHandler<RocketEventListener<DataGridRowEventArgs>, DataGridRowEventArgs>(gcnew System::Action<DataGridRowEventArgs^>(this, &Element::InvokeEventRowRemove), element, "rowremove");
 
-	ELEMENT_HANDLE_EVENT(TabChangeEventHandler,TabChange,"tabchange");
+	AddHandler<RocketEventListener<TabChangeEventArgs>, TabChangeEventArgs>(gcnew System::Action<TabChangeEventArgs^>(this, &Element::InvokeEventTabChange), element, "tabchange");
 }
 
 }

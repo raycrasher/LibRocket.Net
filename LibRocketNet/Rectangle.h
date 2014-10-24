@@ -75,8 +75,8 @@ namespace LibRocketNet {
 
 		int Left, Top, Width, Height;
 
-		static RectangleF FromLTRB(int l, int t, int r, int b) {
-			return RectangleF(l, t, r - l, b - t);
+		static RectangleI FromLTRB(int l, int t, int r, int b) {
+			return RectangleI(l, t, r - l, b - t);
 		}
 	};
 

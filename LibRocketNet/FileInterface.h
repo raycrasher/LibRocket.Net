@@ -4,8 +4,6 @@
 
 using namespace System;
 
-ROCKET_FORWARD_DECLARE(class FileInterface);
-
 namespace LibRocketNet {
 
 	class InternalFileInterface;
@@ -25,7 +23,7 @@ namespace LibRocketNet {
 		virtual size_t Read(void *buffer, size_t size, IntPtr filehandle) abstract;
 		virtual bool Seek(IntPtr filehandle, long offset, int origin) abstract;
 		virtual size_t Tell(IntPtr filehandle) abstract;
-		virtual size_t Length(IntPtr filehandle) { _methodUnused = true; }
+		virtual size_t Length(IntPtr filehandle) { _methodUnused = true; return 0; }
 		virtual void Release() { _methodUnused = true; }
 	};
 

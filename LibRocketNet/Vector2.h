@@ -27,8 +27,8 @@ public: \
 	T operator*(baseT a) { return T(X*a, Y*a); } \
 	T operator/(baseT a) { return T(X/a, Y/a); } \
 internal: \
-	T(RVector2f a) { X=a.x; Y=a.y; } \
-	T(RVector2i a) { X=a.x; Y=a.y; } \
+	T(RVector2f a) { X=(baseT)a.x; Y=(baseT)a.y; } \
+	T(RVector2i a) { X=(baseT)a.x; Y=(baseT)a.y; } \
 };
 
 DEFINE_VECTOR(Vector2f, float);

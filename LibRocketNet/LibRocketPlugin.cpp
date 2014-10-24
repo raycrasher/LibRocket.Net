@@ -8,11 +8,11 @@ namespace LibRocketNet {
 
 void LibRocketPlugin::OnElementDestroy(RocketElement *elem) 
 {
-	auto r=elem->Tag;
+	auto r=GetGcRoot(elem);
 	if(!r) return;
 	auto root= (gcroot<Element^>*) r;
 	auto e=(*root);
 	delete root;
-	e->Dispose();
+	//e->Dispose();
 }
 }
