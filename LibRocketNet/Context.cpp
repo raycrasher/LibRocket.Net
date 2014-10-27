@@ -156,8 +156,8 @@ namespace LibRocketNet {
 	}
 
 	bool Context::GetActiveClipRegion(Vector2i% origin, Vector2i% dimensions) {
-		RVector2i o;
-		RVector2i d;
+		Rocket::Core::Vector2i o;
+		Rocket::Core::Vector2i d;
 		auto ret = ContextPtr->GetActiveClipRegion(o, d);
 		origin = Vector2i(o.x,o.y);
 		dimensions = Vector2i(d.x, d.y);
@@ -165,6 +165,6 @@ namespace LibRocketNet {
 	}
 
 	void Context::SetActiveClipRegion(Vector2i origin, Vector2i dimensions) {
-		ContextPtr->SetActiveClipRegion(RVector2i(origin.X, origin.Y), RVector2i(dimensions.X, dimensions.Y));
+		ContextPtr->SetActiveClipRegion(Rocket::Core::Vector2i(origin.X, origin.Y), Rocket::Core::Vector2i(dimensions.X, dimensions.Y));
 	}
 }

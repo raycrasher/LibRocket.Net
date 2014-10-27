@@ -3,8 +3,6 @@
 #include "Rocket/Core/Vertex.h"
 
 typedef Rocket::Core::Vertex RVertex;
-typedef Rocket::Core::Vector2f RVector2f;
-typedef Rocket::Core::Vector2i RVector2i;
 
 using namespace System;
 using namespace System::Runtime::InteropServices;
@@ -27,8 +25,10 @@ public: \
 	T operator*(baseT a) { return T(X*a, Y*a); } \
 	T operator/(baseT a) { return T(X/a, Y/a); } \
 internal: \
-	T(RVector2f a) { X=(baseT)a.x; Y=(baseT)a.y; } \
-	T(RVector2i a) { X=(baseT)a.x; Y=(baseT)a.y; } \
+	T(Rocket::Core::Vector2f a) { X=(baseT)a.x; Y=(baseT)a.y; } \
+	T(Rocket::Core::Vector2i a) { X=(baseT)a.x; Y=(baseT)a.y; } \
+	operator Rocket::Core::Vector2f(){ return Rocket::Core::Vector2f((float)X,(float)Y); }\
+	operator Rocket::Core::Vector2i(){ return Rocket::Core::Vector2i((int)X,(int)Y); }\
 };
 
 DEFINE_VECTOR(Vector2f, float);

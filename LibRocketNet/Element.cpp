@@ -9,6 +9,8 @@
 
 #define ELEMENT_ATTRIBUTE_NAME "___LIBROCKETNET_ELEMENT_GCROOT___"
 
+using namespace LibRocketNet::Util;
+
 namespace LibRocketNet {
 
 RectangleF Element::Size::get(){
@@ -84,6 +86,41 @@ Element^ Element::Create(RocketElement* elem){
 		return *root;
 	}
 }
+
+Element^ Element::Clone() {
+	return Create(element->Clone());
+}
+
+void Element::SetClass(String^ className, bool activate) {
+	CHECK_NULL_ELEM_VOID();
+	element->SetClass(Util::ToRocketString(className), activate);
+}
+
+bool Element::IsClassSet(String^ className) {
+	CHECK_NULL_ELEM(false);
+	return element->IsClassSet(Util::ToRocketString(className));
+}
+
+String^ Element::ClassNames::get(){
+	CHECK_NULL_ELEM(nullptr);
+	return Util::ToNetString(element->GetClassNames());
+} 
+
+void Element::ClassNames::set(String^ s) {
+	CHECK_NULL_ELEM_VOID();
+	element->SetClassNames( Util::ToRocketString(s) );
+}
+
+String^ Element::GetAddress(bool includePseudoClasses) {
+	CHECK_NULL_ELEM(nullptr);
+	return ToNetString(element->GetAddress(includePseudoClasses));
+}
+
+void Element::SetOffset(Vector2f offset, Element^ offsetParent, bool offsetFixed) {
+	CHECK_NULL_ELEM_VOID();
+	element->SetOffset(offset, offsetParent->element, offsetFixed);
+}
+
 
 template<class _Handler, class _Args>
 void AddHandler(Action<_Args^>^ invoker, Rocket::Core::Element *elem, const char *eventName) {

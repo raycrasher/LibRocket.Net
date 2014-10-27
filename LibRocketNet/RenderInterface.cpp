@@ -23,8 +23,8 @@ namespace LibRocketNet {
 
 		
 
-		virtual void RenderGeometry(RVertex* vertices, int num_vertices, int* indices, int num_indices, RTextureHandle texture, const RVector2f& translation)  override {
-			_netInterface->RenderGeometry((Vertex *)vertices, num_vertices, indices, num_indices, (TextureHandle)(void *)texture, Vector2f(translation.x, translation.y));
+		virtual void RenderGeometry(RVertex* vertices, int num_vertices, int* indices, int num_indices, RTextureHandle texture, const Rocket::Core::Vector2f& translation)  override {
+			_netInterface->RenderGeometry((Vertex *)vertices, num_vertices, indices, num_indices, (TextureHandle)(void *)texture, Vector2f(translation));
 		}
 
 		virtual RCompiledGeometryHandle CompileGeometry(RVertex* vertices, int num_vertices, int* indices, int num_indices, RTextureHandle texture) override  {
@@ -35,7 +35,7 @@ namespace LibRocketNet {
 			else return result;
 		}
 
-		virtual void RenderCompiledGeometry(RCompiledGeometryHandle geometry, const RVector2f& translation)  override {
+		virtual void RenderCompiledGeometry(RCompiledGeometryHandle geometry, const Rocket::Core::Vector2f& translation)  override {
 			_netInterface->_methodUnused = false;
 			_netInterface->RenderCompiledGeometry((CompiledGeometryHandle)(void *)geometry, Vector2f(translation));
 			if (_netInterface->_methodUnused)
@@ -57,7 +57,7 @@ namespace LibRocketNet {
 			_netInterface->SetScissorRegion(x, y, width, height);
 		}
 
-		virtual bool LoadTexture(RTextureHandle& texture_handle, RVector2i& texture_dimensions, const RocketString& source) {
+		virtual bool LoadTexture(RTextureHandle& texture_handle, Rocket::Core::Vector2i& texture_dimensions, const RocketString& source) {
 			_netInterface->_methodUnused = false;
 			TextureHandle handle = TextureHandle::Zero;
 			Vector2i dimensions;
@@ -67,13 +67,12 @@ namespace LibRocketNet {
 			if (_netInterface->_methodUnused) return Rocket::Core::RenderInterface::LoadTexture(texture_handle, texture_dimensions, source);
 
 			texture_handle=(RTextureHandle) handle.ToPointer();
-			texture_dimensions.x=dimensions.X;
-			texture_dimensions.y=dimensions.Y;
+			texture_dimensions = dimensions;
 
 			return result;
 		}
 
-		virtual bool GenerateTexture(RTextureHandle& texture_handle, const unsigned char* source, const RVector2i& source_dimensions)  override {
+		virtual bool GenerateTexture(RTextureHandle& texture_handle, const unsigned char* source, const Rocket::Core::Vector2i& source_dimensions)  override {
 			_netInterface->_methodUnused = false;
 			TextureHandle handle = TextureHandle::Zero;
 

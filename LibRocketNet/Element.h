@@ -35,7 +35,7 @@ public:
 	void SetClass(String^ className, bool activate);
 	void SetClass(String^ className) { SetClass(className, true); }
 
-	void IsClassSet(String^ className);
+	bool IsClassSet(String^ className);
 	
 	property String^ ClassNames { String^ get(); void set(String^ s); }
 
@@ -191,8 +191,10 @@ public:
 
 internal:
 	RocketElement *element;
-	//void InvokeEvent(RocketString& str, ElementEventArgs^ args);
+	
 	static Element^ Create(RocketElement* element);
+
+	// event invokers
 
 	void InvokeEventShow(ElementEventArgs^ args) { Show(this, args); }
 	void InvokeEventHide(ElementEventArgs^ args) { Hide(this, args); }
@@ -237,6 +239,7 @@ internal:
 	void InvokeEventTabChange(TabChangeEventArgs^ args) { TabChange(this, args); }
 
 private:
+
 	void InitHandlers();
 
 	ElementCollection^ _children;
