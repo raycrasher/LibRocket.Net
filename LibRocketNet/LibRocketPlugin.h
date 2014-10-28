@@ -9,7 +9,7 @@ namespace LibRocketNet {
 class LibRocketPlugin : public Rocket::Core::Plugin
 {
 public:
-	virtual void OnElementDestroy(RocketElement *elem);
+	virtual void OnElementDestroy(Rocket::Core::Element *elem);
 };
 
 }

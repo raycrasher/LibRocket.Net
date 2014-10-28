@@ -18,7 +18,7 @@ namespace LibRocketNet {
 
 		gcroot<LibRocketNet::FileInterface^> _netInterface;
 
-		virtual RFileHandle Open(const RocketString& path) {
+		virtual RFileHandle Open(const Rocket::Core::String& path) {
 			return (RFileHandle)_netInterface->Open(Util::ToNetString(path)).ToPointer();
 		}
 

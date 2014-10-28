@@ -20,8 +20,8 @@ namespace LibRocketNet {
 		String^ ToNetString(const Rocket::Core::String& s);
 		Rocket::Core::String ToRocketString(String^ s);
 
-		gcroot<Element^>* GetGcRoot(RocketElement* elem, const char *attribName);
-		void SetGcRoot(RocketElement* elem, gcroot<Element^>* r, const char *attribName);
+		gcroot<Element^>* GetGcRoot(Rocket::Core::Element* elem, const char *attribName);
+		void SetGcRoot(Rocket::Core::Element* elem, gcroot<Element^>* r, const char *attribName);
 	}
 
 }

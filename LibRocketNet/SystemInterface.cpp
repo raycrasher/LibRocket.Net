@@ -18,7 +18,7 @@ namespace LibRocketNet {
 			return _netInterface->GetElapsedTime();
 		}
 
-		virtual int TranslateString(RocketString& translated, const RocketString& input) override {
+		virtual int TranslateString(Rocket::Core::String& translated, const Rocket::Core::String& input) override {
 			_netInterface->_methodUnused = false;
 			String^ str;
 			int retval = _netInterface->TranslateString(str, Util::ToNetString(input));
@@ -27,7 +27,7 @@ namespace LibRocketNet {
 			return retval;
 		}
 
-		virtual void JoinPath(RocketString& translated_path, const RocketString& document_path, const RocketString& path) {
+		virtual void JoinPath(Rocket::Core::String& translated_path, const Rocket::Core::String& document_path, const Rocket::Core::String& path) {
 			String^ tPath;
 			_netInterface->_methodUnused = false;
 			_netInterface->JoinPath(tPath, Util::ToNetString(document_path), Util::ToNetString(path));
@@ -35,7 +35,7 @@ namespace LibRocketNet {
 			else translated_path = Util::ToRocketString(tPath);
 		}
 
-		virtual bool LogMessage(Rocket::Core::Log::Type type, const RocketString& message) {
+		virtual bool LogMessage(Rocket::Core::Log::Type type, const Rocket::Core::String& message) {
 			_netInterface->_methodUnused = false;
 			auto retval = _netInterface->LogMessage((LogType)type, Util::ToNetString(message));
 			if (_netInterface->_methodUnused) return Rocket::Core::SystemInterface::LogMessage(type,message);

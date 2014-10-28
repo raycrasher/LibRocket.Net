@@ -57,7 +57,7 @@ namespace LibRocketNet {
 			_netInterface->SetScissorRegion(x, y, width, height);
 		}
 
-		virtual bool LoadTexture(RTextureHandle& texture_handle, Rocket::Core::Vector2i& texture_dimensions, const RocketString& source) {
+		virtual bool LoadTexture(RTextureHandle& texture_handle, Rocket::Core::Vector2i& texture_dimensions, const Rocket::Core::String& source) {
 			_netInterface->_methodUnused = false;
 			TextureHandle handle = TextureHandle::Zero;
 			Vector2i dimensions;

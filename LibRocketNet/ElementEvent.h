@@ -145,7 +145,7 @@ public:
 //////////////////////////////////////////////////////////////////////
 
 template<class Args>
-class RocketEventListener : public Rocket::Core::EventListener {
+class RocketEvent : public Rocket::Core::EventListener {
 
 public:
 	gcroot<Action<Args^>^> Invoker;

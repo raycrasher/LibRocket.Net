@@ -72,6 +72,9 @@
     <ClInclude Include="LibRocketPlugin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Box.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LibRocketNet.cpp">

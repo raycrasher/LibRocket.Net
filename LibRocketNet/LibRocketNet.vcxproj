@@ -49,7 +49,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(LibRocket)\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(LibRocket)\Include;$(IncludePath)\bin\MinSizeRel;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(LibRocket)\Include;$(LibRocket)\cmake-build\MinSizeRel;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -80,6 +80,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Box.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Core.h" />

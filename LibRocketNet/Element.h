@@ -7,11 +7,15 @@ using namespace System::Collections;
 #include "LibRocketNet.h"
 #include "ElementEvent.h"
 #include "Rectangle.h"
+#include "Box.h"
+#include "Util.h"
+#include "Color.h"
+
+#define ELEMENT_ATTRIBUTE_NAME "___LIBROCKETNET_ELEMENT_GCROOT___"
+
+using namespace LibRocketNet::Util;
 
 namespace LibRocketNet {
-
-gcroot < Element^ > * GetGcRoot(RocketElement* elem);
-void SetGcRoot(RocketElement* elem, gcroot < Element^ > * r);
 
 ref class Context;
 ref class ElementCollection;
@@ -20,9 +24,14 @@ ref class ElementDocument;
 public ref class Element
 {
 protected:
-	Element(RocketElement* elem);
+	Element(Rocket::Core::Element* elem);
 
 public:
+	Element(String^ tagName);
+	Element(String^ instancer, String^ tagName);
+	Element(Element^ parent, String^ tagName);
+	Element(Element^ parent, String^ instancer, String^ tagName);
+
 	virtual ~Element();
 
 	property RectangleF Size {	RectangleF get();	}
@@ -45,14 +54,14 @@ public:
 	void SetOffset(Vector2f offset, Element^ offsetParent, bool offsetFixed);
 	void SetOffset(Vector2f offset, Element^ offsetParent) { SetOffset(offset, offsetParent, false); }
 
-	property RectangleF ClientArea { RectangleF get(); void set(RectangleF r); }
+	property Box::Area ClientArea { Box::Area get(); void set(Box::Area r); }
 
 	void SetContentBox(Vector2f contentOffset, Vector2f contentBox);
-	void SetBox(RectangleF box);
-	void AddBox(RectangleF box);
+	void SetBox(Box^ box);
+	void AddBox(Box^ box);
 
-	RectangleF GetBox(int index);
-	RectangleF GetBox() { return GetBox(0); }
+	Box^ GetBox(int index);
+	Box^ GetBox() { return GetBox(0); }
 
 	property int NumBoxes {	int get();	}
 
@@ -63,32 +72,35 @@ public:
 
 	property bool IsVisible { bool get();	}
 
+	float GetPropertyFloat(String^ str);
+	int GetPropertyInt(String^ str);
+	Color GetPropertyColor(String^ str);
+	String^ GetPropertyString(String^ str);
 
-	void SetProperty(String^ propertyName, int value);
-	void SetProperty(String^ propertyName, float value);
 	void SetProperty(String^ propertyName, String^ value);
 
 	void RemoveProperty(String^ propertyName);
-	float ResolveProperty(String^ propertyName);
 
-
-	void GetBorderWidthProperties (String^% top, String^% bottom, String^% left, String^% right);
-	void GetMarginProperties (String^% top, String^% bottom, String^% left, String^% right);
-	void GetPaddingProperties (String^% top, String^% bottom, String^% left, String^% right);
-	void GetDimensionProperties (String^% width, String^% height);
-	void GetLocalDimensionProperties (String^% width, String^% height);
-
-	property Vector2i OverflowProperty { Vector2i get(); }
-	property int PositionProperty { int get(); }
-	property int FloatProperty { int get(); }
-	property int DisplayProperty { int get(); }
-	property int WhitespaceProperty { int get(); }
-
-	property String^ LineHeightProperty { String^ get(); }
-	property String^ VerticalAlignProperty { String^ get(); }
-
-	property int TextAlignProperty { int get(); }
-	property int TextTransformProperty { int get(); }
+	// float ResolveProperty(String^ propertyName, float baseValue);
+	// 
+	// 
+	// // void GetBorderWidthProperties (String^% top, String^% bottom, String^% left, String^% right);
+	// // void GetMarginProperties (String^% top, String^% bottom, String^% left, String^% right);
+	// // void GetPaddingProperties (String^% top, String^% bottom, String^% left, String^% right);
+	// // void GetDimensionProperties (String^% width, String^% height);
+	// // void GetLocalDimensionProperties (String^% width, String^% height);
+	// 
+	// property Vector2i OverflowProperty { Vector2i get(); }
+	// property int PositionProperty { int get(); }
+	// property int FloatProperty { int get(); }
+	// property int DisplayProperty { int get(); }
+	// property int WhitespaceProperty { int get(); }
+	// 
+	// property String^ LineHeightProperty { String^ get(); }
+	// property String^ VerticalAlignProperty { String^ get(); }
+	// 
+	// property int TextAlignProperty { int get(); }
+	// property int TextTransformProperty { int get(); }
 
 
 	bool IsPseudoClassSet(String^ pseudoclass);
@@ -101,15 +113,15 @@ public:
 	void SetAttribute(String^ attribute, float value);
 	void SetAttribute(String^ attribute, String^ value);
 
-	int GetAttribute(String^ attribute, int defaultVal);
-	float GetAttribute(String^ attribute, float defaultVal);
-	String^ GetAttribute(String^ attribute, String^ defaultVal);
+	int GetAttributeInt(String^ attribute, int defaultVal);
+	float GetAttributeFloat(String^ attribute, float defaultVal);
+	String^ GetAttributeString(String^ attribute, String^ defaultVal);
+	IntPtr GetAttributePtr(String^ attribute, IntPtr defaultVal);
 
 	bool HasAttribute(String^ name);
-	bool RemoveAttribute(String^ name);
+	void RemoveAttribute(String^ name);
 
-	void SetAttributes(Generic::KeyValuePair<String^, Object^> attributes);
-	Generic::KeyValuePair<String^, Object^> GetAttributes();
+	void SetAttributes(Generic::Dictionary<String^, Object^> attributes);
 
 	property Element^ FocusLeafNode { Element^ get(); }
 	property Context^ Context { LibRocketNet::Context^ get(); }
@@ -139,9 +151,9 @@ public:
 	property Element^ NextSibling { Element^ get(); }
 	property Element^ ParentNode { Element^ get(); }
 
-	bool FocusElement();
-	void BlurElement();
-	void ClickElement();
+	bool FocusElement() { return element->Focus(); }
+	void BlurElement() { element->Blur();  }
+	void ClickElement() { element->Click(); }
 
 public:
 	
@@ -190,9 +202,9 @@ public:
 
 
 internal:
-	RocketElement *element;
+	Rocket::Core::Element *element;
 	
-	static Element^ Create(RocketElement* element);
+	static Element^ Create(Rocket::Core::Element* element);
 
 	// event invokers
 
@@ -240,6 +252,7 @@ internal:
 
 private:
 
+	void Construct(Rocket::Core::Element *elem);
 	void InitHandlers();
 
 	ElementCollection^ _children;

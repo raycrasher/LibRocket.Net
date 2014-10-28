@@ -16,6 +16,10 @@ ElementCollection::ElementCollection(Element^element)
 	_element=element;
 }
 
+Element^ ElementCollection::ElementEnumerator::CurrentGeneric::get(){
+	return _current;
+};
+
 Generic::IEnumerator<Element^>^ ElementCollection::GetEnumeratorImpl(){
 	return gcnew ElementEnumerator(_element);
 }

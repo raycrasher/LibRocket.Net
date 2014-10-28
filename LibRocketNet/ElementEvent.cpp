@@ -6,7 +6,7 @@
 #include "Util.h"
 
 namespace LibRocketNet {
-	ElementEventArgs::ElementEventArgs(RocketEvent *evt)
+	ElementEventArgs::ElementEventArgs(Rocket::Core::Event *evt)
 	{
 		eventPtr = evt;
 		Phase = (EventPhase)eventPtr->GetPhase();
@@ -21,7 +21,7 @@ namespace LibRocketNet {
 
 	//////////////////////////////////////////////////////
 
-	KeyboardEventArgs::KeyboardEventArgs(RocketEvent *evt) : ElementEventArgs(evt)
+	KeyboardEventArgs::KeyboardEventArgs(Rocket::Core::Event *evt) : ElementEventArgs(evt)
 	{
 		Key = (KeyIdentifiers)eventPtr->GetParameter<int>("key_identifier", 0);
 		ControlKeyPressed = eventPtr->GetParameter<bool>("ctrl_key", 0);
@@ -35,14 +35,14 @@ namespace LibRocketNet {
 
 	//////////////////////////////////////////////////////
 
-	TextInputEventArgs::TextInputEventArgs(RocketEvent *evt) : ElementEventArgs(evt){
+	TextInputEventArgs::TextInputEventArgs(Rocket::Core::Event *evt) : ElementEventArgs(evt){
 		Data = evt->GetParameter<int>("data", 0);
 	}
 
 
 	//////////////////////////////////////////////////////
 
-	MouseEventArgs::MouseEventArgs(RocketEvent *evt) : ElementEventArgs(evt){
+	MouseEventArgs::MouseEventArgs(Rocket::Core::Event *evt) : ElementEventArgs(evt){
 		X = evt->GetParameter<int>("mouse_x", 0);
 		Y = evt->GetParameter<int>("mouse_y", 0);
 		Button = evt->GetParameter<int>("button", 0);
@@ -51,16 +51,16 @@ namespace LibRocketNet {
 
 	//////////////////////////////////////////////////////
 
-	DragEventArgs::DragEventArgs(RocketEvent *evt) : ElementEventArgs(evt){
+	DragEventArgs::DragEventArgs(Rocket::Core::Event *evt) : ElementEventArgs(evt){
 		X = evt->GetParameter<int>("mouse_x", 0);
 		Y = evt->GetParameter<int>("mouse_y", 0);
-		DragElement = Element::Create(evt->GetParameter<RocketElement *>("drag_element", 0));
+		DragElement = Element::Create(evt->GetParameter<Rocket::Core::Element *>("drag_element", 0));
 	}
 
 	//////////////////////////////////////////////////////
 
 	String^ FormSubmitEventArgs::GetField(String^ name){
-		auto s = eventPtr->GetParameter<RocketString>(Util::ToRocketString(name), "");
+		auto s = eventPtr->GetParameter<Rocket::Core::String>(Util::ToRocketString(name), "");
 		if (s.Length() <= 0) return nullptr;
 		return Util::ToNetString(s);
 	}
@@ -68,14 +68,14 @@ namespace LibRocketNet {
 
 	//////////////////////////////////////////////////////
 
-	FormControlChangeEventArgs::FormControlChangeEventArgs(RocketEvent *evt) : ElementEventArgs(evt){
-		Value = Util::ToNetString(evt->GetParameter<RocketString>("value", ""));
+	FormControlChangeEventArgs::FormControlChangeEventArgs(Rocket::Core::Event *evt) : ElementEventArgs(evt){
+		Value = Util::ToNetString(evt->GetParameter<Rocket::Core::String>("value", ""));
 	}
 
 
 	//////////////////////////////////////////////////////
 
-	HandleEventArgs::HandleEventArgs(RocketEvent *evt) : ElementEventArgs(evt){
+	HandleEventArgs::HandleEventArgs(Rocket::Core::Event *evt) : ElementEventArgs(evt){
 		X = evt->GetParameter<int>("handle_x", 0);
 		Y = evt->GetParameter<int>("handle_y", 0);
 	}
@@ -83,13 +83,13 @@ namespace LibRocketNet {
 
 	//////////////////////////////////////////////////////
 
-	DataGridAddColumnEventArgs::DataGridAddColumnEventArgs(RocketEvent *evt) : ElementEventArgs(evt){
+	DataGridAddColumnEventArgs::DataGridAddColumnEventArgs(Rocket::Core::Event *evt) : ElementEventArgs(evt){
 		Index = evt->GetParameter<int>("index", 0);
 	}
 
 	//////////////////////////////////////////////////////
 
-	DataGridRowEventArgs::DataGridRowEventArgs(RocketEvent *evt) : ElementEventArgs(evt){
+	DataGridRowEventArgs::DataGridRowEventArgs(Rocket::Core::Event *evt) : ElementEventArgs(evt){
 		bool add = true;
 		auto t = evt->GetType();
 		if (t == "rowremove") add = false;
@@ -101,7 +101,7 @@ namespace LibRocketNet {
 
 	//////////////////////////////////////////////////////
 
-	TabChangeEventArgs::TabChangeEventArgs(RocketEvent *evt) : ElementEventArgs(evt){
+	TabChangeEventArgs::TabChangeEventArgs(Rocket::Core::Event *evt) : ElementEventArgs(evt){
 		TabIndex = evt->GetParameter<int>("tab_index", 0);
 	}
 
