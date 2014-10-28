@@ -10,6 +10,7 @@ namespace LibRocketNet {
 
 	[StructLayout(LayoutKind::Sequential)]
 	public value class Vertex {
+	public:
 		Vector2f Position;
 		Color Color;
 		Vector2f TexCoords;

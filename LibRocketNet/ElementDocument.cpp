@@ -4,6 +4,7 @@
 #include "Rocket/Core/ElementDocument.h"
 #include "Util.h"
 #include "Context.h"
+#include "Core.h"
 
 using namespace System;
 using namespace LibRocketNet::Util;
@@ -30,7 +31,7 @@ namespace LibRocketNet {
 	}
 
 	LibRocketNet::Context^ ElementDocument::Context::get(){
-		return LibRocketNet::Context::Contexts[IntPtr((void *)DocumentPtr->GetContext())];
+		return LibRocketNet::Core::_contexts[IntPtr((void *)DocumentPtr->GetContext())];
 	}
 
 	String^ ElementDocument::Title::get(){

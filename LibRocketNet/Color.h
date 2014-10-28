@@ -10,7 +10,7 @@ namespace LibRocketNet {
 	[StructLayout(LayoutKind::Sequential)]
 	public value class Color {
 	public:
-		float R, G, B, A;
+		Byte R, G, B, A;
 	internal:
 		Color(Rocket::Core::Colourb c) {
 			R = c.red;

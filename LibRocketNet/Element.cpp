@@ -5,6 +5,7 @@
 #include "Context.h"
 #include "Rectangle.h"
 #include "ElementDocument.h"
+#include "Core.h"
 
 #define CHECK_NULL_ELEM(_Def) if(!element) if(LibRocket::ThrowIfElementDestroyed) throw gcnew InvalidOperationException("Element already disposed."); else return _Def;
 #define CHECK_NULL_ELEM_VOID() if(!element) if(LibRocket::ThrowIfElementDestroyed) throw gcnew InvalidOperationException("Element already disposed."); else return;
@@ -137,7 +138,7 @@ Element^ Element::FocusLeafNode::get() {
 }
 
 Context^ Element::Context::get(){
-	return LibRocketNet::Context::Contexts[IntPtr((void *)element->GetContext())];
+	return LibRocketNet::Core::_contexts[IntPtr((void *)element->GetContext())];
 }
 
 String^ Element::TagName::get() { return ToNetString(element->GetTagName()); }

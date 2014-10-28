@@ -71,7 +71,6 @@ internal:
 	Rocket::Core::Context * ContextPtr;
 	LibRocketNet::RenderInterface ^ _renderInterface;
 
-	static System::Collections::Generic::Dictionary<IntPtr, Context^>^ Contexts;
 };
 
 

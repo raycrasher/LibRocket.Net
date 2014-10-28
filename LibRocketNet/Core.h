@@ -15,6 +15,7 @@ ref class Plugin;
 
 public ref class Core abstract 
 {
+internal:
 	static SystemInterface^ _systemInterface;
 	static RenderInterface^ _renderInterface;
 	static FileInterface^ _fileInterface;
