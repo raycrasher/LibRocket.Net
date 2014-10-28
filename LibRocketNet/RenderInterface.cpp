@@ -140,4 +140,8 @@ Context^ RenderInterface::Context::get(){
 	return _context;
 }
 
+void RenderInterface::SetCore(){
+	Rocket::Core::SetRenderInterface(_nativeInterface);
+}
+
 }

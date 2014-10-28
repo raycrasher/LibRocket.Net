@@ -13,6 +13,8 @@ namespace LibRocketNet {
 	internal:
 		InternalFileInterface *_nativeInterface;
 		bool _methodUnused;
+
+		void SetCore();
 	protected:
 		FileInterface();
 	public:

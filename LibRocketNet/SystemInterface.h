@@ -22,6 +22,7 @@ namespace LibRocketNet {
 	internal:
 		InternalSystemInterface *_nativeInterface;
 		bool _methodUnused;
+		void SetCore();
 	protected:
 		SystemInterface(void);
 	public:
@@ -32,6 +33,8 @@ namespace LibRocketNet {
 		virtual bool LogMessage(LogType type, String^ message) { _methodUnused = true; return false; }
 		virtual void ActivateKeyboard() { _methodUnused = true; }
 		virtual void DeactivateKeyboard() { _methodUnused = true; }	
+
+		
 	};
 
 

@@ -12,8 +12,7 @@ namespace LibRocketNet {
 	public:
 
 		gcroot<LibRocketNet::SystemInterface^> _netInterface;
-
-		
+	
 		virtual float GetElapsedTime() {
 			return _netInterface->GetElapsedTime();
 		}
@@ -55,6 +54,10 @@ namespace LibRocketNet {
 		}
 
 	};
+
+	void SystemInterface::SetCore(){
+		Rocket::Core::SetSystemInterface(_nativeInterface);
+	}
 
 	SystemInterface::SystemInterface(void)
 	{

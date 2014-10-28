@@ -36,6 +36,7 @@ namespace LibRocketNet {
 	} 
 
 	void Core::SystemInterface::set(LibRocketNet::SystemInterface^ s) {
+		s->SetCore();
 		_systemInterface = s;
 	}
 
@@ -45,6 +46,7 @@ namespace LibRocketNet {
 	}
 
 	void Core::RenderInterface::set(LibRocketNet::RenderInterface^ r) {
+		r->SetCore();
 		_renderInterface = r;
 	}
 
@@ -53,6 +55,7 @@ namespace LibRocketNet {
 	}
 
 	void Core::FileInterface::set(LibRocketNet::FileInterface^ f) {
+		f->SetCore();
 		_fileInterface = f;
 	}
 

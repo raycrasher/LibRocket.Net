@@ -24,6 +24,8 @@ public ref class RenderInterface abstract
 {
 internal:
 	bool _methodUnused;
+
+	void SetCore();
 public:
 	RenderInterface();
 	virtual ~RenderInterface();

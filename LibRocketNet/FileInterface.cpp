@@ -50,7 +50,13 @@ namespace LibRocketNet {
 			_netInterface->Release();
 			if (_netInterface->_methodUnused) Rocket::Core::FileInterface::Release();
 		}
+
+
 	};
+
+	void FileInterface::SetCore(){
+		Rocket::Core::SetFileInterface(_nativeInterface);
+	}
 
 	FileInterface::FileInterface()
 	{
