@@ -2,6 +2,25 @@
 
 namespace LibRocketNet {
 
+public enum class FontStyle
+{
+	Normal = 0,
+	Italic = 1,
+};
+
+public enum class FontWeight
+{
+	Normal = 0,
+	Bold = 1,
+};
+
+public enum class FontLine
+{
+	Underline = 0,
+	Overline = 1,
+	Strikethrough = 2
+};
+
 public enum class KeyIdentifiers {
 
 	Unknown = 0,

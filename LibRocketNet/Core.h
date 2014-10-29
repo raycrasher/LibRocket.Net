@@ -3,6 +3,7 @@
 using namespace System;
 using namespace System::Collections::Generic;
 
+#include "Constants.h"
 #include "Vector2.h"
 
 namespace LibRocketNet {
@@ -41,6 +42,15 @@ public:
 	
 	static void ReleaseCompiledGeometries();
 	static void ReleaseTextures();
+
+	static bool LoadFontFace(String^ font);
+	static bool LoadFontFace(String^ file_name, String^ family, FontStyle style, FontWeight weight);
+	static bool LoadFontFace(array<Byte>^ data);
+	static bool LoadFontFace(array<Byte>^ data, String^ family, FontStyle style, FontWeight weight);
+
+	static void InitDebugger(Context^ context);
+
+	static property bool DebugMode { bool get(); void set(bool m); }
 };
 
 }

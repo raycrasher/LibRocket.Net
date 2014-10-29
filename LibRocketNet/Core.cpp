@@ -2,6 +2,7 @@
 
 #include "Rocket/Core.h"
 #include "Rocket/Core/String.h"
+#include "Rocket/Debugger.h"
 
 #include "Core.h"
 #include "Util.h"
@@ -10,7 +11,8 @@
 #include "FileInterface.h"
 #include "Context.h"
 
-
+using namespace System;
+using namespace LibRocketNet::Util;
 
 namespace LibRocketNet {
 
@@ -93,4 +95,33 @@ namespace LibRocketNet {
 		Rocket::Core::ReleaseTextures();
 	}
 
+	bool Core::LoadFontFace(String^ font){
+		return Rocket::Core::FontDatabase::LoadFontFace(ToRocketString(font));
+	}
+
+	bool Core::LoadFontFace(String^ file_name, String^ family, FontStyle style, FontWeight weight) {
+		return Rocket::Core::FontDatabase::LoadFontFace(ToRocketString(file_name), ToRocketString(family), (Rocket::Core::Font::Style) style, (Rocket::Core::Font::Weight) weight);
+	}
+
+	bool Core::LoadFontFace(array<Byte>^ data){
+		pin_ptr<Byte> ptr = &data[0];
+		return Rocket::Core::FontDatabase::LoadFontFace(ptr, data->Length);
+	}
+
+	bool Core::LoadFontFace(array<Byte>^ data, String^ family, FontStyle style, FontWeight weight) {
+		pin_ptr<Byte> ptr = &data[0];
+		return Rocket::Core::FontDatabase::LoadFontFace(ptr, data->Length, ToRocketString(family), (Rocket::Core::Font::Style) style, (Rocket::Core::Font::Weight) weight);
+	}
+
+	void Core::InitDebugger(Context^ context){
+		Rocket::Debugger::Initialise(context->ContextPtr);
+	}
+
+	bool Core::DebugMode::get(){
+		return Rocket::Debugger::IsVisible();
+	}
+
+	void Core::DebugMode::set(bool v){
+		Rocket::Debugger::SetVisible(v);
+	}
 }
