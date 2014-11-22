@@ -49,6 +49,41 @@ public protected:
 
 	property Context^ Context { LibRocketNet::Context^ get(); }
 
+	generic<typename T> where T:value class
+	static array<T>^ CopyVertices(Vertex *vtx, int numVertices) {
+		if (sizeof(T) != sizeof(Vertex))
+			throw gcnew ArgumentException(
+				String::Format(
+					"Unable to copy vertices to type - sizes are not equal: {0} = {1}, {2} = {3}", 
+					T::typeid->Name, sizeof(T), Vertex::typeid->Name, sizeof(Vertex)));
+
+		auto arr = gcnew array<T>(numVertices);
+
+		pin_ptr<T> ptr = &arr[0];
+
+		void *p = ptr;
+		memcpy(p, vtx, sizeof(T)* numVertices);
+		return arr;
+	}
+
+	generic<typename T> where T:value class
+		static array<T>^ CopyVertices(Vertex *vtx, array<T>^ arr, int numVertices) {
+		if (sizeof(T) != sizeof(Vertex))
+			throw gcnew ArgumentException(
+			String::Format(
+			"Unable to copy vertices to type - sizes are not equal: {0} = {1}, {2} = {3}",
+			T::typeid->Name, sizeof(T), Vertex::typeid->Name, sizeof(Vertex)));
+
+		if (arr->Length < numVertices)
+			throw gcnew ArgumentException("CopyVertices: Vertex array not large enough.");
+
+		pin_ptr<T> ptr = &arr[0];
+
+		void *p = ptr;
+		memcpy(p, vtx, sizeof(T)* numVertices);
+		return arr;
+	}
+
 internal:
 	InternalRenderInterface* _nativeInterface;
 
