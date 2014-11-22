@@ -20,6 +20,7 @@ namespace LibRocketNet {
 	public:
 		virtual ~FileInterface();
 
+	public protected:
 		virtual IntPtr Open(String^ filename) abstract;
 		virtual void Close(IntPtr filehandle) abstract;
 		virtual size_t Read(void *buffer, size_t size, IntPtr filehandle) abstract;

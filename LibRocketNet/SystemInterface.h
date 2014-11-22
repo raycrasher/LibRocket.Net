@@ -27,6 +27,8 @@ namespace LibRocketNet {
 		SystemInterface(void);
 	public:
 		virtual ~SystemInterface();
+	public protected:
+		
 		virtual float GetElapsedTime() abstract;
 		virtual int TranslateString(String^% translated, String^ input) { _methodUnused = true; return 0; }
 		virtual void JoinPath(String^% translatedPath, String^ documentPath, String^ path) { _methodUnused = true; }

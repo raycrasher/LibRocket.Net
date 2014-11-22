@@ -27,9 +27,12 @@ internal:
 
 	void SetCore();
 public:
-	RenderInterface();
+	
 	virtual ~RenderInterface();
-
+protected:
+	RenderInterface();
+public protected:
+	
 	virtual void RenderGeometry(Vertex * vertices, int num_vertices, int * indices, int num_indices, IntPtr texture, Vector2f translation) abstract;
 	virtual CompiledGeometryHandle CompileGeometry(Vertex* vertices, int num_vertices, int* indices, int num_indices, TextureHandle texture) { _methodUnused = true; return IntPtr::Zero; }
 	virtual void RenderCompiledGeometry(CompiledGeometryHandle geometry, Vector2f translation) {	_methodUnused=true;	}
