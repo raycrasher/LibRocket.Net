@@ -301,6 +301,7 @@ void Element::Construct(Rocket::Core::Element *elem){
 	*r = this;
 	SetGcRoot(elem, r, ELEMENT_ATTRIBUTE_NAME);
 	elem->AddReference();
+	InitHandlers();
 	_children = gcnew ElementCollection(this);
 }
 
@@ -364,6 +365,15 @@ void Element::SetProperty(String^ propertyName, String^ value) {
 	element->SetProperty(ToRocketString(propertyName), ToRocketString(value));
 }
 
+void Element::SetProperty(String^ propertyName, int value) {
+	element->SetProperty(ToRocketString(propertyName), Rocket::Core::Property(value, Rocket::Core::Property::NUMBER));
+}
+
+void Element::SetProperty(String^ propertyName, float value) {
+	element->SetProperty(ToRocketString(propertyName), Rocket::Core::Property(value, Rocket::Core::Property::NUMBER));
+}
+
+
 void Element::RemoveProperty(String^ propertyName) {
 	element->RemoveProperty(ToRocketString(propertyName));
 }
@@ -400,6 +410,32 @@ Color Element::GetPropertyColor(String^ str) {
 
 String^ Element::GetPropertyString(String^ str) {
 	return ToNetString(element->GetProperty<Rocket::Core::String>(ToRocketString(str)));
+}
+
+Element^ Element::GetElementById(String^ id) {
+	return Create(element->GetElementById(ToRocketString(id)));
+}
+
+array<Element^>^ Element::GetElementsByTagName(String^ tag) {
+	Rocket::Core::ElementList list;
+	element->GetElementsByTagName(list, ToRocketString(tag));
+	auto arr = gcnew array<Element^>(list.size());
+	for (unsigned i = 0; i < list.size(); i++)
+	{
+		arr[i] = Create(list[i]);
+	}
+	return arr;
+}
+
+array<Element^>^ Element::GetElementsByClassName(String^ class_name) {
+	Rocket::Core::ElementList list;
+	element->GetElementsByClassName(list, ToRocketString(class_name));
+	auto arr = gcnew array<Element^>(list.size());
+	for (unsigned i = 0; i < list.size(); i++)
+	{
+		arr[i] = Create(list[i]);
+	}
+	return arr;
 }
 
 template<class _Handler, class _Args>

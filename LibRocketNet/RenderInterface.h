@@ -26,9 +26,12 @@ internal:
 	bool _methodUnused;
 
 	void SetCore();
-public:
+protected:
 	RenderInterface();
+public:
 	virtual ~RenderInterface();
+
+public protected:
 
 	virtual void RenderGeometry(Vertex * vertices, int num_vertices, int * indices, int num_indices, IntPtr texture, Vector2f translation) abstract;
 	virtual CompiledGeometryHandle CompileGeometry(Vertex* vertices, int num_vertices, int* indices, int num_indices, TextureHandle texture) { _methodUnused = true; return IntPtr::Zero; }
