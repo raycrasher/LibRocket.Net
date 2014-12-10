@@ -285,10 +285,25 @@ Generic::IEnumerable<String^ > ^ Element::ActivePseudoClasses::get(){
 }
 
 
+void Element::AppendChild(Element^ elem){
+	element->AppendChild(elem->element);
+}
 
+void Element::InsertBefore(Element^ elem, Element^ adjacentElement){
+	element->InsertBefore(elem->element, adjacentElement->element);
+}
 
+void Element::ScrollIntoView(){
+	element->ScrollIntoView();
+}
 
+void Element::ReplaceChild(Element^ elem, Element^ replacedElem){
+	element->ReplaceChild(elem->element, replacedElem->element);
+}
 
+void Element::RemoveChild(Element^ elem){
+	element->RemoveChild(elem->element);
+}
 
 
 

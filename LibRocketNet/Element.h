@@ -163,9 +163,18 @@ public:
 	property Element^ NextSibling { Element^ get(); }
 	property Element^ ParentNode { Element^ get(); }
 
+	property Object^ Tag;
+
 	bool FocusElement() { return element->Focus(); }
 	void BlurElement() { element->Blur();  }
 	void ClickElement() { element->Click(); }
+
+	void AppendChild(Element^ elem);
+	void InsertBefore(Element^ elem, Element^ adjacentElement);
+	void ScrollIntoView();
+
+	void RemoveChild(Element^ elem);
+	void ReplaceChild(Element^ elem, Element^ replacedElem);
 
 public:
 	
