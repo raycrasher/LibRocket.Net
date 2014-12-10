@@ -26,7 +26,7 @@ namespace LibRocketNet {
 			return retval;
 		}
 
-		virtual void JoinPath(Rocket::Core::String& translated_path, const Rocket::Core::String& document_path, const Rocket::Core::String& path) {
+		virtual void JoinPath(Rocket::Core::String& translated_path, const Rocket::Core::String& document_path, const Rocket::Core::String& path) override{
 			String^ tPath;
 			_netInterface->_methodUnused = false;
 			_netInterface->JoinPath(tPath, Util::ToNetString(document_path), Util::ToNetString(path));
@@ -34,20 +34,20 @@ namespace LibRocketNet {
 			else translated_path = Util::ToRocketString(tPath);
 		}
 
-		virtual bool LogMessage(Rocket::Core::Log::Type type, const Rocket::Core::String& message) {
+		virtual bool LogMessage(Rocket::Core::Log::Type type, const Rocket::Core::String& message) override{
 			_netInterface->_methodUnused = false;
 			auto retval = _netInterface->LogMessage((LogType)type, Util::ToNetString(message));
 			if (_netInterface->_methodUnused) return Rocket::Core::SystemInterface::LogMessage(type,message);
 			return retval;
 		}
 
-		virtual void ActivateKeyboard() {
+		virtual void ActivateKeyboard() override{
 			_netInterface->_methodUnused = false;
 			_netInterface->ActivateKeyboard();
 			if (_netInterface->_methodUnused) Rocket::Core::SystemInterface::ActivateKeyboard();
 		}
 
-		virtual void DeactivateKeyboard() {
+		virtual void DeactivateKeyboard() override{
 			_netInterface->_methodUnused = false;
 			_netInterface->DeactivateKeyboard();
 			if (_netInterface->_methodUnused) Rocket::Core::SystemInterface::DeactivateKeyboard();

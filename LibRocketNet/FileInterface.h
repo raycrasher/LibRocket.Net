@@ -19,7 +19,6 @@ namespace LibRocketNet {
 		FileInterface();
 	public:
 		virtual ~FileInterface();
-
 	public protected:
 		virtual IntPtr Open(String^ filename) abstract;
 		virtual void Close(IntPtr filehandle) abstract;

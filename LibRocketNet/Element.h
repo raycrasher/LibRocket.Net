@@ -78,8 +78,20 @@ public:
 	String^ GetPropertyString(String^ str);
 
 	void SetProperty(String^ propertyName, String^ value);
+	void SetProperty(String^ propertyName, int value);
+	void SetProperty(String^ propertyName, float value);
 
 	void RemoveProperty(String^ propertyName);
+
+	Element^ GetElementById(String^ id);
+	/// Get all descendant elements with the given tag.
+	/// @param[out] elements Resulting elements.
+	/// @param[in] tag Tag to search for.
+	array<Element^>^ GetElementsByTagName(String^ tag);
+	/// Get all descendant elements with the given class set on them.
+	/// @param[out] elements Resulting elements.
+	/// @param[in] tag Tag to search for.
+	array<Element^>^ GetElementsByClassName(String^ class_name);
 
 	// float ResolveProperty(String^ propertyName, float baseValue);
 	// 
@@ -151,9 +163,18 @@ public:
 	property Element^ NextSibling { Element^ get(); }
 	property Element^ ParentNode { Element^ get(); }
 
+	property Object^ Tag;
+
 	bool FocusElement() { return element->Focus(); }
 	void BlurElement() { element->Blur();  }
 	void ClickElement() { element->Click(); }
+
+	void AppendChild(Element^ elem);
+	void InsertBefore(Element^ elem, Element^ adjacentElement);
+	void ScrollIntoView();
+
+	void RemoveChild(Element^ elem);
+	void ReplaceChild(Element^ elem, Element^ replacedElem);
 
 public:
 	
