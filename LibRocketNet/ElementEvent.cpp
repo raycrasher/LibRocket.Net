@@ -106,4 +106,8 @@ namespace LibRocketNet {
 	}
 
 
+	//////////////////////////////////////////////////////
+	ScriptEventArgs::ScriptEventArgs(Rocket::Core::Event *evt) : ElementEventArgs(evt) {
+	}
+
 }

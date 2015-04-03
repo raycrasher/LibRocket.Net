@@ -5,6 +5,7 @@ using namespace System::Collections::Generic;
 
 #include "Constants.h"
 #include "Vector2.h"
+#include "ElementEvent.h"
 
 namespace LibRocketNet {
 
@@ -13,6 +14,7 @@ ref class RenderInterface;
 ref class FileInterface;
 ref class Context;
 ref class Plugin;
+
 
 public ref class Core abstract 
 {
@@ -49,6 +51,10 @@ public:
 	static bool LoadFontFace(array<Byte>^ data, String^ family, FontStyle style, FontWeight weight);
 
 	static void InitDebugger(Context^ context);
+
+	static event EventHandler < ScriptEventArgs^ >^ ScriptEvent;
+
+	static void FireScriptEvent(String^ message, Rocket::Core::Event& evt);
 
 	static property bool DebugMode { bool get(); void set(bool m); }
 };

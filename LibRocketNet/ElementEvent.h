@@ -136,8 +136,14 @@ public:
 	int TabIndex;
 };
 
+//////////////////////////////////////////////////////////////////////
 
-
+public ref class ScriptEventArgs : public ElementEventArgs {
+internal:
+	ScriptEventArgs(Rocket::Core::Event *evt);
+public:
+	String^ Script;
+};
 
 
 

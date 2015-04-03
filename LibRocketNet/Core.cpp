@@ -124,4 +124,10 @@ namespace LibRocketNet {
 	void Core::DebugMode::set(bool v){
 		Rocket::Debugger::SetVisible(v);
 	}
+
+	void Core::FireScriptEvent(String^ message, Rocket::Core::Event& evt) {
+		auto e = gcnew ScriptEventArgs(&evt);
+		e->Script = message;
+		ScriptEvent(nullptr, e);
+	}
 }
