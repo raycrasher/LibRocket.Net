@@ -10,6 +10,7 @@
 #include "RenderInterface.h"
 #include "FileInterface.h"
 #include "Context.h"
+#include "EventListener.h"
 
 using namespace System;
 using namespace LibRocketNet::Util;
@@ -18,6 +19,7 @@ namespace LibRocketNet {
 
 	bool Core::Initialize() {
 		_contexts = gcnew Dictionary<IntPtr,Context^>();
+		Rocket::Core::Factory::RegisterEventListenerInstancer(new LibRocketNetEventInstancer());
 		return Rocket::Core::Initialise();
 	}
 

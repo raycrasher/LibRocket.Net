@@ -87,7 +87,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(LibRocket)\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(LibRocket)\Include;D:\Zero\Projects\freetype\cmake-build-64\MinSizeRel;$(LibRocket)\cmake-build-64\MinSizeRel;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(LibRocket)\Include;$(FreeType_x64);$(LibRocket_x64);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -150,6 +150,7 @@
     <ClInclude Include="ElementDocument.h" />
     <ClInclude Include="ElementEvent.h" />
     <ClInclude Include="Context.h" />
+    <ClInclude Include="EventListener.h" />
     <ClInclude Include="FileInterface.h" />
     <ClInclude Include="LibRocketNet.h" />
     <ClInclude Include="LibRocketPlugin.h" />
@@ -170,6 +171,7 @@
     <ClCompile Include="ElementDocument.cpp" />
     <ClCompile Include="ElementEvent.cpp" />
     <ClCompile Include="Context.cpp" />
+    <ClCompile Include="EventListener.cpp" />
     <ClCompile Include="FileInterface.cpp" />
     <ClCompile Include="LibRocketNet.cpp" />
     <ClCompile Include="LibRocketPlugin.cpp" />

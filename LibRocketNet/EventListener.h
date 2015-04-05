@@ -10,29 +10,20 @@ namespace LibRocketNet {
 	public:
 
 		class LibRocketNetEventListener: public Rocket::Core::EventListener {
-			const Rocket::Core::String *_value;
+			gcroot<String^> _value;
 		public:
-			LibRocketNetEventListener(const Rocket::Core::String &value) {
-				_value = &value;
-			}
+			LibRocketNetEventListener(const Rocket::Core::String &value);
 
-			virtual void ProcessEvent(Rocket::Core::Event& evt) {
-				Core::FireScriptEvent(Util::ToNetString(*_value), evt);
-			}
+			virtual void ProcessEvent(Rocket::Core::Event& evt);
 
-			virtual void OnDetach(Rocket::Core::Element* element)
-			{
-				delete this;
-			}
+			virtual void OnDetach(Rocket::Core::Element* element);
 
 		};
 
-		virtual Rocket::Core::EventListener* InstanceEventListener(const Rocket::Core::String& value, Rocket::Core::Element* element){
-			return new LibRocketNetEventListener(value);
-		}
+		LibRocketNetEventInstancer();
 
-		virtual void Release(){
-			delete this;
-		}
+		virtual Rocket::Core::EventListener* InstanceEventListener(const Rocket::Core::String& value, Rocket::Core::Element* element);
+
+		virtual void Release();
 	};
 }

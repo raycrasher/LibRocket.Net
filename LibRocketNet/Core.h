@@ -15,7 +15,6 @@ ref class FileInterface;
 ref class Context;
 ref class Plugin;
 
-
 public ref class Core abstract 
 {
 internal:
