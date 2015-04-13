@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 #include "Rocket/Core.h"
+#include "Rocket/Controls.h"
 #include "Rocket/Core/String.h"
 #include "Rocket/Debugger.h"
 
@@ -20,7 +21,9 @@ namespace LibRocketNet {
 	bool Core::Initialize() {
 		_contexts = gcnew Dictionary<IntPtr,Context^>();
 		Rocket::Core::Factory::RegisterEventListenerInstancer(new LibRocketNetEventInstancer());
-		return Rocket::Core::Initialise();
+		bool ret = Rocket::Core::Initialise();
+		Rocket::Controls::Initialise();
+		return ret;
 	}
 
 	void Core::Shutdown() {

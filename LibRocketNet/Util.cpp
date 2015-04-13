@@ -26,6 +26,7 @@ namespace Util {
 	}
 
 	Rocket::Core::String ToRocketString(String^ str) {
+		if (str->Length <= 0) return Rocket::Core::String();
 		array<Byte>^ encodedBytes = System::Text::Encoding::UTF8->GetBytes(str);
 		pin_ptr<Byte> pinnedBytes = &encodedBytes[0];
 		Rocket::Core::String s(reinterpret_cast<char*>(pinnedBytes));
