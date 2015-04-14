@@ -1,8 +1,8 @@
 #pragma once
 
 using namespace System;
-using namespace System::Collections;
-using namespace NosebleedStudios::Utilities;
+using namespace System;
+using namespace System::Collections::Generic;
 
 #include "LibRocketNet.h"
 
@@ -10,15 +10,15 @@ namespace LibRocketNet {
 
 ref class Element;
 
-public ref class ElementCollection: ReadOnlyListCpp<Element^>
+public ref class ElementCollection: IReadOnlyList<Element^>
 {
 private:
 	Element^ _element;
 
 
-	ref class ElementEnumerator : Generic::IEnumerator<Element^> {
+	ref class ElementEnumerator : System::Collections::Generic::IEnumerator<Element^> {
 		property Element^ CurrentGeneric { 
-            virtual Element^ get() sealed = Generic::IEnumerator<Element^>::Current::get;
+			virtual Element^ get() sealed = System::Collections::Generic::IEnumerator<Element^>::Current::get;
         };
 
 		Element^ _elem;
@@ -44,17 +44,34 @@ private:
 internal:
 	ElementCollection(Element^);
 
+
+	virtual System::Collections::IEnumerator^ EnumerableGetEnumerator() = System::Collections::IEnumerable::GetEnumerator
+	{
+		return GetEnumerator();
+	}
+
 public:
 
 	property Element^ First { Element^ get(); }
 	property Element^ Last { Element^ get(); }
 
-	virtual property int Count { int get() override; }
+	virtual property int Count { int get(); }
+
+
+
+	virtual System::Collections::Generic::IEnumerator<Element^>^ GetEnumerator(){
+		return gcnew ElementEnumerator(_element);
+	}
+
+	property Element^ default[int] {
+		virtual Element^ get(int index){
+			return GetItemByIndex(index);
+		}
+	}
 
 protected:
 
-	virtual Element^ GetItemByIndex(int index) override;
-	virtual Generic::IEnumerator<Element^>^ GetEnumeratorImpl() override;
+	Element^ GetItemByIndex(int index);
 };
 
 }

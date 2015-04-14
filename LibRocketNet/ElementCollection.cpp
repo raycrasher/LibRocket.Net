@@ -20,10 +20,6 @@ Element^ ElementCollection::ElementEnumerator::CurrentGeneric::get(){
 	return _current;
 };
 
-Generic::IEnumerator<Element^>^ ElementCollection::GetEnumeratorImpl(){
-	return gcnew ElementEnumerator(_element);
-}
-
 Element^ ElementCollection::GetItemByIndex(int index){
 	if(index>=Count) throw gcnew IndexOutOfRangeException();
 	if(_element->element == NULL) throw gcnew InvalidOperationException(NULL_PTR_MSG);
