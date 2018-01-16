@@ -325,7 +325,6 @@ Element::Element(Rocket::Core::Element* elem){
 }
 
 Element::~Element(){
-	//element->RemoveReference();
 	element=NULL;
 	
 }

@@ -40,7 +40,7 @@ public protected:
 	virtual void EnableScissorRegion(bool enable) abstract;
 	virtual void SetScissorRegion(int x, int y, int width, int height) abstract;
 	virtual bool LoadTexture(TextureHandle% texture_handle, Vector2i% texture_dimensions, String^ source) { _methodUnused = true;	return false; }
-	virtual bool GenerateTexture(TextureHandle% texture_handle, IntPtr source, Vector2i source_dimensions) { _methodUnused = true;	return false; }
+	virtual bool GenerateTexture(TextureHandle% texture_handle, const unsigned char *source, Vector2i source_dimensions) { _methodUnused = true;	return false; }
 	virtual void ReleaseTexture(TextureHandle texture) {	_methodUnused=true;	}
 	virtual float GetHorizontalTexelOffset() { _methodUnused = true; return 0; }
 	virtual float GetVerticalTexelOffset() { _methodUnused = true;	return 0; }

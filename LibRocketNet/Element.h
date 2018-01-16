@@ -192,7 +192,7 @@ internal:																																							\
 	EventHandler < netEventArgs^ >^ _elementHandlers_##name;																										\
 	void InvokeEvent##name(netEventArgs^ args) { _elementHandlers_##name(this, args); }																				\
 public:																																								\
-	event EventHandler < netEventArgs^ >^ ##name {																													\
+	event EventHandler < netEventArgs^ >^ name {																													\
 		void add(EventHandler < netEventArgs^ >^ handler) {																											\
 			if (_elementHandlers_##name == nullptr) {																												\
 				_elementHandlers_##name = handler;																													\

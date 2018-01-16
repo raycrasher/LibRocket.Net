@@ -108,6 +108,7 @@ namespace LibRocketNet {
 		return Rocket::Core::FontDatabase::LoadFontFace(ToRocketString(file_name), ToRocketString(family), (Rocket::Core::Font::Style) style, (Rocket::Core::Font::Weight) weight);
 	}
 
+	/*
 	bool Core::LoadFontFace(array<Byte>^ data){
 		pin_ptr<Byte> ptr = &data[0];
 		return Rocket::Core::FontDatabase::LoadFontFace(ptr, data->Length);
@@ -117,6 +118,7 @@ namespace LibRocketNet {
 		pin_ptr<Byte> ptr = &data[0];
 		return Rocket::Core::FontDatabase::LoadFontFace(ptr, data->Length, ToRocketString(family), (Rocket::Core::Font::Style) style, (Rocket::Core::Font::Weight) weight);
 	}
+	*/
 
 	void Core::InitDebugger(Context^ context){
 		Rocket::Debugger::Initialise(context->ContextPtr);

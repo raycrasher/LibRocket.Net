@@ -74,7 +74,7 @@ namespace LibRocketNet {
 			_netInterface->_methodUnused = false;
 			TextureHandle handle = TextureHandle::Zero;
 
-			bool result = _netInterface->GenerateTexture(handle, (IntPtr)(void *) source, Vector2i(source_dimensions));
+			bool result = _netInterface->GenerateTexture(handle, source, Vector2i(source_dimensions));
 			if (_netInterface->_methodUnused)
 				return Rocket::Core::RenderInterface::GenerateTexture(texture_handle, source, source_dimensions);
 

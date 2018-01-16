@@ -11,7 +11,7 @@ namespace LibRocketNet {
 
 	Context::Context(Rocket::Core::Context * ctx) {
 		ContextPtr = ctx;
-		ContextPtr->AddReference();
+		//ContextPtr->AddReference();
 	}
 
 	Context::~Context() {
@@ -41,18 +41,21 @@ namespace LibRocketNet {
 	ElementDocument^ Context::CreateDocument(String^ tag) {
 		auto docPtr = ContextPtr->CreateDocument(Util::ToRocketString(tag));
 		if (!docPtr) return nullptr;
+		docPtr->RemoveReference();
 		return ElementDocument::Create(docPtr);
 	}
 
 	ElementDocument^ Context::LoadDocument(String^ documentPath) {
 		auto docPtr = ContextPtr->LoadDocument(Util::ToRocketString(documentPath));
 		if (!docPtr) return nullptr;
+		docPtr->RemoveReference();
 		return ElementDocument::Create(docPtr);
 	}
 
 	ElementDocument^ Context::LoadDocumentFromMemory(String^ str) {
 		auto docPtr = ContextPtr->LoadDocumentFromMemory(Util::ToRocketString(str));
 		if (!docPtr) return nullptr;
+		docPtr->RemoveReference();
 		return ElementDocument::Create(docPtr);
 	}
 
