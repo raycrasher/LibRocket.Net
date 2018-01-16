@@ -6,6 +6,7 @@
 
 
 #include <gcroot.h>
+#include "Rocket/Core/String.h"
 #include "Rocket/Core/Core.h"
 #include "Rocket/Core/Element.h"
-#include "Rocket/Core/String.h"
+

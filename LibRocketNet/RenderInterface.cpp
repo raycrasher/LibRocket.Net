@@ -15,21 +15,19 @@ namespace LibRocketNet {
 	class InternalRenderInterface : public Rocket::Core::RenderInterface {
 	public:
 
-		InternalRenderInterface(){
-			
-		}
-
 		gcroot<LibRocketNet::RenderInterface^> _netInterface;
 
-		
+		InternalRenderInterface() {
+		}
 
 		virtual void RenderGeometry(RVertex* vertices, int num_vertices, int* indices, int num_indices, RTextureHandle texture, const Rocket::Core::Vector2f& translation)  override {
-			_netInterface->RenderGeometry((Vertex *)vertices, num_vertices, indices, num_indices, (TextureHandle)(void *)texture, Vector2f(translation));
+			_netInterface->RenderGeometry( (Vertex *) vertices, num_vertices, indices, num_indices, (TextureHandle)(void *)texture, Vector2f(translation));
 		}
 
 		virtual RCompiledGeometryHandle CompileGeometry(RVertex* vertices, int num_vertices, int* indices, int num_indices, RTextureHandle texture) override  {
 			_netInterface->_methodUnused = false;
-			RCompiledGeometryHandle result = (RCompiledGeometryHandle)_netInterface->CompileGeometry((Vertex *)vertices, num_vertices, indices, num_indices, (TextureHandle)(void *)texture).ToPointer();
+
+			RCompiledGeometryHandle result = (RCompiledGeometryHandle)_netInterface->CompileGeometry((Vertex *) vertices, num_vertices, indices, num_indices, (TextureHandle)(void *)texture).ToPointer();
 			if (_netInterface->_methodUnused)
 				return Rocket::Core::RenderInterface::CompileGeometry(vertices, num_vertices, indices, num_indices, texture);
 			else return result;
@@ -76,7 +74,7 @@ namespace LibRocketNet {
 			_netInterface->_methodUnused = false;
 			TextureHandle handle = TextureHandle::Zero;
 
-			bool result = _netInterface->GenerateTexture(handle, (System::Byte *) source, Vector2i(source_dimensions));
+			bool result = _netInterface->GenerateTexture(handle, (IntPtr)(void *) source, Vector2i(source_dimensions));
 			if (_netInterface->_methodUnused)
 				return Rocket::Core::RenderInterface::GenerateTexture(texture_handle, source, source_dimensions);
 

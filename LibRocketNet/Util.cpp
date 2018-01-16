@@ -2,14 +2,14 @@
 #include <gcroot.h>
 #include <vcclr.h>
 #include "Rocket/Core/Element.h"
+#include "Rocket/Core/String.h"
 #include "Util.h"
 
 #include "Element.h"
 
+
 namespace LibRocketNet {
 namespace Util {
-
-	
 
 	gcroot<Element^>* GetGcRoot(Rocket::Core::Element* elem, const char *attribName){
 		if (!elem) throw gcnew ArgumentNullException();
