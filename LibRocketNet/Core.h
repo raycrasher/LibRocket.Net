@@ -5,6 +5,7 @@ using namespace System::Collections::Generic;
 
 #include "Constants.h"
 #include "Vector2.h"
+#include "ElementEvent.h"
 
 namespace LibRocketNet {
 
@@ -45,10 +46,10 @@ public:
 
 	static bool LoadFontFace(String^ font);
 	static bool LoadFontFace(String^ file_name, String^ family, FontStyle style, FontWeight weight);
-	static bool LoadFontFace(array<Byte>^ data);
-	static bool LoadFontFace(array<Byte>^ data, String^ family, FontStyle style, FontWeight weight);
 
 	static void InitDebugger(Context^ context);
+
+	static event EventHandler<ScriptEventArgs^>^ OnScript;
 
 	static property bool DebugMode { bool get(); void set(bool m); }
 };

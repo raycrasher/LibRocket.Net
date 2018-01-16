@@ -18,6 +18,7 @@ namespace LibRocketNet {
 
 	bool Core::Initialize() {
 		_contexts = gcnew Dictionary<IntPtr,Context^>();
+
 		return Rocket::Core::Initialise();
 	}
 
@@ -68,7 +69,6 @@ namespace LibRocketNet {
 		auto ctx = gcnew Context((Rocket::Core::Context *) ctxPtr.ToPointer());
 		ctx->_renderInterface = renderInterface;
 		_contexts[ctxPtr] = ctx;
-		return ctx;
 	}
 
 	Context^ Core::GetContext(String^ name) {
@@ -101,16 +101,6 @@ namespace LibRocketNet {
 
 	bool Core::LoadFontFace(String^ file_name, String^ family, FontStyle style, FontWeight weight) {
 		return Rocket::Core::FontDatabase::LoadFontFace(ToRocketString(file_name), ToRocketString(family), (Rocket::Core::Font::Style) style, (Rocket::Core::Font::Weight) weight);
-	}
-
-	bool Core::LoadFontFace(array<Byte>^ data){
-		pin_ptr<Byte> ptr = &data[0];
-		return Rocket::Core::FontDatabase::LoadFontFace(ptr, data->Length);
-	}
-
-	bool Core::LoadFontFace(array<Byte>^ data, String^ family, FontStyle style, FontWeight weight) {
-		pin_ptr<Byte> ptr = &data[0];
-		return Rocket::Core::FontDatabase::LoadFontFace(ptr, data->Length, ToRocketString(family), (Rocket::Core::Font::Style) style, (Rocket::Core::Font::Weight) weight);
 	}
 
 	void Core::InitDebugger(Context^ context){

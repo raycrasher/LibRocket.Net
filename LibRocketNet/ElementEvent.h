@@ -137,7 +137,11 @@ public:
 };
 
 
-
+public ref class ScriptEventArgs : public EventArgs {
+public:
+	String^ Script;
+	Element^ Element;
+};
 
 
 
