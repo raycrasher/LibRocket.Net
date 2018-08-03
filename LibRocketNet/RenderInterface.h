@@ -33,14 +33,14 @@ public:
 
 public protected:
 
-	virtual void RenderGeometry(Vertex *vertices, int numVertices, int* indices, int numIndices, IntPtr texture, Vector2f translation) abstract;
-	virtual CompiledGeometryHandle CompileGeometry(Vertex *vertices, int numVertices, int* indices, int numIndices, TextureHandle texture) { _methodUnused = true; return IntPtr::Zero; }
+	virtual void RenderGeometry(array<Vertex>^ vertices, array<int>^ indices, IntPtr texture, Vector2f translation) abstract;
+	virtual CompiledGeometryHandle CompileGeometry(array<Vertex>^ vertices, array<int>^ indices, TextureHandle texture) { _methodUnused = true; return IntPtr::Zero; }
 	virtual void RenderCompiledGeometry(CompiledGeometryHandle geometry, Vector2f translation) {	_methodUnused=true;	}
 	virtual void ReleaseCompiledGeometry(CompiledGeometryHandle geometry) {	_methodUnused=true;	}
 	virtual void EnableScissorRegion(bool enable) abstract;
 	virtual void SetScissorRegion(int x, int y, int width, int height) abstract;
 	virtual bool LoadTexture(TextureHandle% texture_handle, Vector2i% texture_dimensions, String^ source) { _methodUnused = true;	return false; }
-	virtual bool GenerateTexture(TextureHandle% texture_handle, const unsigned char *source, Vector2i source_dimensions) { _methodUnused = true;	return false; }
+	virtual bool GenerateTexture(TextureHandle% texture_handle, array<unsigned char>^ source, Vector2i source_dimensions) { _methodUnused = true;	return false; }
 	virtual void ReleaseTexture(TextureHandle texture) {	_methodUnused=true;	}
 	virtual float GetHorizontalTexelOffset() { _methodUnused = true; return 0; }
 	virtual float GetVerticalTexelOffset() { _methodUnused = true;	return 0; }

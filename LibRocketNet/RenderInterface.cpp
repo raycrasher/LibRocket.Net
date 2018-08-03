@@ -21,13 +21,37 @@ namespace LibRocketNet {
 		}
 
 		virtual void RenderGeometry(RVertex* vertices, int num_vertices, int* indices, int num_indices, RTextureHandle texture, const Rocket::Core::Vector2f& translation)  override {
-			_netInterface->RenderGeometry( (Vertex *) vertices, num_vertices, indices, num_indices, (TextureHandle)(void *)texture, Vector2f(translation));
+			array<Vertex>^ vtxArray = gcnew array<Vertex>(num_vertices);
+			array<int>^ idxArray = gcnew array<int>(num_indices);
+			{
+				pin_ptr<Vertex> pinnedVtxArray = &vtxArray[0];
+				const int vtxSizeInBytes = num_vertices * sizeof(Vertex);
+				memcpy_s(pinnedVtxArray, vtxSizeInBytes, vertices, vtxSizeInBytes);
+
+				pin_ptr<int> pinnedIdxArray = &idxArray[0];
+				const int idxSizeInBytes = num_indices * sizeof(int);
+				memcpy_s(pinnedIdxArray, idxSizeInBytes, indices, idxSizeInBytes);
+			}
+
+			_netInterface->RenderGeometry(vtxArray, idxArray, (TextureHandle)(void *)texture, Vector2f(translation));
 		}
 
 		virtual RCompiledGeometryHandle CompileGeometry(RVertex* vertices, int num_vertices, int* indices, int num_indices, RTextureHandle texture) override  {
 			_netInterface->_methodUnused = false;
 
-			RCompiledGeometryHandle result = (RCompiledGeometryHandle)_netInterface->CompileGeometry((Vertex *) vertices, num_vertices, indices, num_indices, (TextureHandle)(void *)texture).ToPointer();
+			array<Vertex>^ vtxArray = gcnew array<Vertex>(num_vertices);
+			array<int>^ idxArray = gcnew array<int>(num_indices);
+			{
+				pin_ptr<Vertex> pinnedVtxArray = &vtxArray[0];
+				const int vtxSizeInBytes = num_vertices * sizeof(Vertex);
+				memcpy_s(pinnedVtxArray, vtxSizeInBytes, vertices, vtxSizeInBytes);
+				
+				pin_ptr<int> pinnedIdxArray = &idxArray[0];
+				const int idxSizeInBytes = num_indices * sizeof(int);
+				memcpy_s(pinnedIdxArray, idxSizeInBytes, indices, idxSizeInBytes);
+			}
+
+			RCompiledGeometryHandle result = (RCompiledGeometryHandle)_netInterface->CompileGeometry(vtxArray, idxArray, (TextureHandle)(void *)texture).ToPointer();
 			if (_netInterface->_methodUnused)
 				return Rocket::Core::RenderInterface::CompileGeometry(vertices, num_vertices, indices, num_indices, texture);
 			else return result;
@@ -73,8 +97,14 @@ namespace LibRocketNet {
 		virtual bool GenerateTexture(RTextureHandle& texture_handle, const unsigned char* source, const Rocket::Core::Vector2i& source_dimensions)  override {
 			_netInterface->_methodUnused = false;
 			TextureHandle handle = TextureHandle::Zero;
+			auto sizeBytes = source_dimensions.x * source_dimensions.y * 4;
+			array<unsigned char>^ bytes = gcnew array<unsigned char>(sizeBytes);
+			{
+				pin_ptr<unsigned char> pinnedBytes = &bytes[0];
+				memcpy_s(pinnedBytes, sizeBytes, source, sizeBytes);
+			}
 
-			bool result = _netInterface->GenerateTexture(handle, source, Vector2i(source_dimensions));
+			bool result = _netInterface->GenerateTexture(handle, bytes, Vector2i(source_dimensions));
 			if (_netInterface->_methodUnused)
 				return Rocket::Core::RenderInterface::GenerateTexture(texture_handle, source, source_dimensions);
 
